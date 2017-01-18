@@ -184,7 +184,8 @@ namespace ZoipSwitch
             bundles.Add(new ScriptBundle("~/bundles/datatable").Include(
                         "~/Content/widgets/datatable/datatable.js",
                         "~/Content/widgets/datatable/datatable-bootstrap.js",
-                        "~/Content/widgets/datatable/datatable-tabletools.js"));
+                        "~/Content/widgets/datatable/datatable-tabletools.js",
+                        "~/Content/widgets/datatable/datatable-reorder.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/charts/chart-js").Include(
                         "~/Content/widgets/charts/chart-js/chart-core.js",
