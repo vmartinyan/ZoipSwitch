@@ -208,17 +208,23 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\case_statusesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\order_statusController.cs" />
     <Compile Include="DAL\Context.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\action_categories.cs" />
+    <Compile Include="Models\action_statuses.cs" />
+    <Compile Include="Models\action_types.cs" />
+    <Compile Include="Models\case_departments.cs" />
+    <Compile Include="Models\case_statuses.cs" />
+    <Compile Include="Models\case_types.cs" />
+    <Compile Include="Models\case_urgencies.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\order_status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -2447,6 +2453,7 @@
     <Content Include="Scripts\kendo\2017.1.118\pako_deflate.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2483,11 +2490,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Datatable.cshtml" />
-    <Content Include="Views\order_status\Create.cshtml" />
-    <Content Include="Views\order_status\Delete.cshtml" />
-    <Content Include="Views\order_status\Details.cshtml" />
-    <Content Include="Views\order_status\Edit.cshtml" />
-    <Content Include="Views\order_status\Index.cshtml" />
     <Content Include="Scripts\kendo\2017.1.118\jquery.min.map" />
     <Content Include="Scripts\kendo\2017.1.118\kendo.all.min.js.map" />
     <Content Include="Scripts\kendo\2017.1.118\kendo.angular.min.js.map" />
@@ -2685,6 +2687,9 @@
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy.cshtml" />
+    <Content Include="Views\case_statuses\Index.cshtml" />
+    <Content Include="Views\case_statuses\Template.cshtml" />
+    <Content Include="Views\case_statuses\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

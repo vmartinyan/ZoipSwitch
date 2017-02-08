@@ -229,7 +229,8 @@ namespace ZoipSwitch
 
 
 
-
+            bundles.Add(new ScriptBundle("~/bundles/site").Include(
+                      "~/Scripts/site.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*",

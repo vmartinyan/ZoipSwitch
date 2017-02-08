@@ -7,12 +7,12 @@ using System.Web;
 
 namespace ZoipSwitch.Models
 {
-    [Table("order_status", Schema = "public")]
-    public class order_status
+    [Table("action_types", Schema = "public")]
+    public class action_types
     {
         [Key]
-        public int order_status_flags { get; set; }
+        public int action_type_id { get; set; }
 
-        public string order_status_text { get; set; }
+        public string action_type_name { get; set; }
     }
 }

@@ -1,0 +1,203 @@
+﻿@model IEnumerable<ZoipSwitch.Models.case_statuses>
+@using Kendo.Mvc.UI
+
+@{
+    ViewBag.Title = "Case Status";
+}
+<div class="clear"></div>
+<div class="for-Toolbar">
+    @(Html.Kendo().ToolBar()
+    .Name("ToolBar")
+    .Items(items =>
+    {
+        items.Add().Type(CommandType.Button).Togglable(false).Text("Create").Id("btnCreate").Click("Create");
+        items.Add().Type(CommandType.Button).Togglable(false).Text("Details").Id("btnDetails").Click("Details");
+    })
+    )
+    @* Search Panel - Right Slide *@
+    <div class="right-slidePanel">
+        <div class="slidePanel-Content">
+            <div class="slidePanel-btn">
+            </div>
+            <div class="slidePanel-Content-fields create-item">
+                <h4>Search</h4>
+                <div class="form-group margin-5-0">
+                    <input id="prm_case_statuses_name" class="k-textbox" placeholder="name" />
+                </div>
+                <div class="form-group btns align-right">
+                    <button type="submit" id="rtSearch" class="k-button" onclick="return Search();"><i class="glyph-icon icon-search"></i> Search</button>
+                    <button type="submit" class="k-button" onclick="return Clear();"><i class="glyph-icon icon-minus-circle-o"></i> Clean</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function Search() {
+        $("#case_statuses").data("kendoGrid").dataSource.read();
+        $("#case_statuses").data("kendoGrid").refresh();
+        return false;
+    }
+
+    function Clear() {
+        $("#prm_case_statuses_name").val("");
+        $("#case_statuses").data("kendoGrid").dataSource.read();
+        $("#case_statuses").data("kendoGrid").refresh();
+        return false;
+    }
+
+    function getParameter() {
+        return {
+            name: $("#prm_case_statuses_name").val()
+        };
+    }
+</script>
+
+
+@(Html.Kendo().Grid<ZoipSwitch.Models.case_statuses>()
+                        .Name("case_statuses")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(model => model.case_status_id).Hidden();
+                            columns.Bound(model => model.case_status_name);
+                            columns.Command(commands =>
+                            {
+                                commands.Custom("Update").Text(" ").Click("Update");
+                                commands.Custom("Delete").Text(" ").Click("Delete");
+                            }).Title("Commands").Width(130);
+                        })
+                        .Selectable(s => s.Mode(Kendo.Mvc.UI.GridSelectionMode.Single))
+                        .Events(e => e.DataBound("onRowBound"))
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5))
+                        .Filterable()
+                        .Scrollable()
+                        .Resizable(resize => resize.Columns(true))
+                        .Reorderable(reorder => reorder.Columns(true))
+                        .Sortable()
+                        //.HtmlAttributes(new { style = "height:620px;" })
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Read(read => read.Action("Read", "case_statuses").Data("getParameter"))
+                        .PageSize(15)
+                        .Model(model => model.Id(p => p.case_status_id))
+)
+)
+@(Html.Kendo().Window().Name("crtWindow").Width(450)
+            .Height(130).Draggable()
+            .Resizable().Content("")
+            .Title("Create")
+            .Modal(true)
+            .Actions(actions => actions.Pin().Close())
+            .Visible(false)
+            .Events(events => events
+            .Close("onClose").Open("onOpen").Refresh("onRefresh"))
+)
+
+@(Html.Kendo().Window().Name("window").Width(550)
+            .Height(120).Draggable()
+            .Resizable().Content("")
+            .Title("Details")
+            .Modal(true)
+            .Actions(actions => actions.Pin().Close())
+            .Visible(false)
+            .Events(events => events
+            .Close("onClose").Open("onOpen").Refresh("onRefresh"))
+)
+
+<script>
+    function Create() {
+        var window = $("#crtWindow").data("kendoWindow");
+        window.content("");
+        @*window.title("@Resources.General_NewRecord");*@
+        window.refresh({
+            url: "@Url.Action("Create", "case_statuses")"
+        });
+    window.center();
+    window.open();
+    return false;
+    }
+
+    function Update(e) {
+        var window = $("#crtWindow").data("kendoWindow");
+        var row = $(e.target).closest("tr");
+        var grid = $("#case_statuses").data("kendoGrid");
+        var dataItem = grid.dataItem(row);
+        window.content("");
+        window.title("Edit");
+        window.refresh({
+            url: "@Url.Action("Update", "case_statuses")" + "/" + dataItem.case_status_id
+        });
+    window.center();
+    window.open();
+    return false;
+    }
+
+    function Delete(e) {
+        var row = $(e.target).closest("tr");
+        var grid = $("#case_statuses").data("kendoGrid");
+        var dataItem = grid.dataItem(row);
+        var r = confirm("Are you sure to delete the record?");
+        if (r == false) {
+            return false;
+        }
+        var rt = false;
+        var dt;
+        var q = $.ajax({
+            url: '@Url.Action("Delete", "case_statuses")',
+            dataType: "json",
+            type: "GET",
+            data: {
+                id: dataItem.case_status_id
+            },
+            async: false,
+            success: function(data) {
+                dt = data;
+                rt = true;
+            },
+            error: function(xhr) {
+                dt = xhr;
+                rt = false;
+            }
+        });
+        if (rt == true) {
+            $("#case_statuses").data("kendoGrid").dataSource.read();
+            $("#case_statuses").data("kendoGrid").refresh();
+        } else {
+            alert(dt);
+            return false;
+        }
+        return false;
+    }
+
+    function Details() {
+        var window = $("#window").data("kendoWindow");
+        var grid = $("#case_statuses").data("kendoGrid");
+        var selectedItem = grid.dataItem(grid.select());
+        if (selectedItem == null) {
+            alert("No item selected");
+            return false;
+        }
+        window.content("");
+        @*window.title("@Resources.Bank_Details_Title");*@
+        window.refresh({
+            url: "@Url.Action("Details", "case_statuses")" + "/" + selectedItem.case_status_id
+        });
+        window.center();
+        window.open();
+    }
+
+    function onOpen(e) {
+        kendo.ui.progress(e.sender.element, true);
+    }
+    function onClose() {
+        $("#case_statuses").data("kendoGrid").dataSource.read();
+        $("#case_statuses").data("kendoGrid").refresh();
+    }
+    function onRefresh(e) {
+        kendo.ui.progress(e.sender.element, false);
+    }
+</script>

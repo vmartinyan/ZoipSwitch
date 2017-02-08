@@ -120,7 +120,7 @@
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
-                                    <li><a href="@Url.Action("", "")" title="Status"><span>Status</span></a></li>
+                                    <li><a href="@Url.Action("Index", "case_statuses")" title="Status"><span>Status</span></a></li>
                                     <li><a href="@Url.Action("", "")" title="Type"><span>Type</span></a></li>
                                     <li><a href="@Url.Action("", "")" title="Urgency"><span>Urgency</span></a></li>
                                     <li><a href="@Url.Action("", "")" title="Department"><span>Department</span></a></li>
@@ -179,6 +179,9 @@
 
     <!-- Theme layout -->
     @Scripts.Render("~/bundles/themes-js")
+
+    <!-- Site JS -->
+    @Scripts.Render("~/bundles/site")
 
     <!-- Render Scripts Section -->
     @RenderSection("Scripts", required: false)

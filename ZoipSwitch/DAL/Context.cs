@@ -14,7 +14,13 @@ namespace ZoipSwitch.DAL
         {
         }
 
-        public DbSet<order_status> Order_Statuses { get; set; }
+        public DbSet<case_statuses> Case_Statuses { get; set; }
+        public DbSet<case_types> Case_Types { get; set; }
+        public DbSet<case_urgencies> Case_Urgencies { get; set; }
+        public DbSet<case_departments> Case_Departments { get; set; }
+        public DbSet<action_categories> Action_Categories { get; set; }
+        public DbSet<action_types> Action_Types { get; set; }
+        public DbSet<action_statuses> Action_Statuses { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

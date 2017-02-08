@@ -1,0 +1,77 @@
+﻿@model ZoipSwitch.Models.case_statuses
+
+@{
+    Layout = null;
+}
+
+<div class="create-item">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.case_status_id)
+
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.case_status_name, htmlAttributes: new { @class = "control-label align-right" })
+        @Html.EditorFor(model => model.case_status_name, new { htmlAttributes = new { @class = "k-textbox" } })
+        @Html.ValidationMessageFor(model => model.case_status_name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group margin-5-0 align-right">
+        <button id="dtSave" class="k-button"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
+        <button id="dtCancel" class="k-button"><i class="glyphicon glyphicon-off"></i> Close</button>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#dtCancel")
+            .click(function () {
+                if ($(this).closest(".k-window-content").data("kendoWindow"))
+                    $(this).closest(".k-window-content").data("kendoWindow").close();
+            });
+        $("#dtSave")
+            .click(function (e) {
+
+                var item = new Object();
+                item.case_status_id = $("#case_status_id").val();
+                item.case_status_name = $("#case_status_name").val();
+
+                var rt = false;
+                var dt;
+                var q = $.ajax({
+                    url: '@Url.Action("Save", "case_statuses")',
+                    dataType: "json",
+                    type: "POST",
+                    data: JSON.stringify({ case_statuses: item }),
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    success: function (data) {
+                        dt = data;
+                        rt = true;
+                    },
+                    error: function (xhr) {
+                        dt = xhr;
+                        rt = false;
+                    }
+                });
+                if (rt == true) {
+                    if (dt != "1") {
+                        alert(JSON.stringify(dt));
+                    }
+                    else {
+                        if ($(this).closest(".k-window-content").data("kendoWindow"))
+                            $(this).closest(".k-window-content").data("kendoWindow").close();
+                    }
+                }
+                else {
+                    alert(dt);
+                    return false;
+                }
+
+            });
+    });
+</script>
+
+
