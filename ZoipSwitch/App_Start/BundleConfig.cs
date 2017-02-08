@@ -136,6 +136,15 @@ namespace ZoipSwitch
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/site.css"));
+            
+            // Kendo - Styles 
+            bundles.Add(new StyleBundle("~/Content/kendo/2017.1.118/kendo-scc").Include(
+                      "~/Content/kendo/2017.1.118/kendo.common-material.min.css",
+                      "~/Content/kendo/2017.1.118/kendo.mobile.all.min.css",
+                      "~/Content/kendo/2017.1.118/kendo.dataviz.min.css",
+                      "~/Content/kendo/2017.1.118/kendo.material.min.css",
+                      "~/Content/kendo/2017.1.118/kendo.dataviz.material.min.css"
+                      ));
 
 
 
@@ -208,7 +217,13 @@ namespace ZoipSwitch
                         "~/Content/widgets/owlcarousel/owlcarousel.js",
                         "~/Content/widgets/owlcarousel/owlcarousel-demo.js"));
 
-
+            bundles.Add(new ScriptBundle("~/bundles/kendo-js").Include(
+                        "~/Scripts/kendo/2017.1.118/jquery.min.js",
+                        "~/Scripts/kendo/2017.1.118/jszip.min.js",
+                        "~/Scripts/kendo/2017.1.118/kendo.all.min.js",
+                        "~/Scripts/kendo/2017.1.118/kendo.aspnetmvc.min.js",
+                        "~/Scripts/kendo.modernizr.custom.js"
+                        ));
 
 
 
