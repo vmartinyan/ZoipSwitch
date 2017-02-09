@@ -7,6 +7,22 @@
         width: 45px;
     }
 
+.k-grid td {
+    padding:5px;
+}
+
+.for-Toolbar button.toolBtn {
+    margin:0 5px 5px 5px;
+}
+
+.border-box {
+    box-sizing:border-box !important;
+}
+
+.align-right {
+    text-align:right;
+}
+
 /*Right-slidePanel*/
 .right_col {
     overflow: hidden;
@@ -31,21 +47,21 @@
 }
 
 .right-slidePanel .slidePanel-btn{
-    height:30px;
-    width:30px;
+    height:35px;
+    width:35px;
     position:absolute;
     top:0;
-    left:-55px;
+    left:-60px;
     background-color:#fff;
     border:1px solid #dbdbdb;
-    font-size:18px;
-    padding:3px 0 0 4px;
+    font-size:21px;
+    padding-left:6px;
     color:#898989;
     cursor:pointer;
 }
 
 .right-slidePanel .slidePanel-btn:hover{
-    background-color:#10C4B2;
+    background-color:#00B0FF;
     color:#fff;
 }
 
@@ -75,4 +91,9 @@
 
 .right-slidePanel .slidePanel-Content-fields label{
     color:#fff;
+}
+
+.right-slidePanel input,
+.create-item input {
+    width: 100%;
 }

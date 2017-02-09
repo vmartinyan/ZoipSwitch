@@ -1,4 +1,4 @@
-﻿@model ZoipSwitch.Models.case_statuses
+﻿@model ZoipSwitch.Models.case_types
 
 @{
     Layout = null;
@@ -7,12 +7,12 @@
 <div class="create-item">
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.case_status_id)
+    @Html.HiddenFor(model => model.case_type_id)
 
     <div class="form-group margin-5-0">
-        @Html.LabelFor(model => model.case_status_name, htmlAttributes: new { @class = "control-label align-right" })
-        @Html.EditorFor(model => model.case_status_name, new { htmlAttributes = new { @class = "k-textbox" } })
-        @Html.ValidationMessageFor(model => model.case_status_name, "", new { @class = "text-danger" })
+        @Html.LabelFor(model => model.case_type_name, htmlAttributes: new { @class = "control-label align-right" })
+        @Html.EditorFor(model => model.case_type_name, new { htmlAttributes = new { @class = "k-textbox" } })
+        @Html.ValidationMessageFor(model => model.case_type_name, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group margin-5-0 align-right">
@@ -41,16 +41,16 @@
             .click(function (e) {
 
                 var item = new Object();
-                item.case_status_id = $("#case_status_id").val();
-                item.case_status_name = $("#case_status_name").val();
+                item.case_type_id = $("#case_type_id").val();
+                item.case_type_name = $("#case_type_name").val();
 
                 var rt = false;
                 var dt;
                 var q = $.ajax({
-                    url: '@Url.Action("Save", "case_statuses")',
+                    url: '@Url.Action("Save", "case_types")',
                     dataType: "json",
                     type: "POST",
-                    data: JSON.stringify({ case_statuses: item }),
+                    data: JSON.stringify({ case_types: item }),
                     contentType: "application/json; charset=utf-8",
                     async: false,
                     success: function (data) {

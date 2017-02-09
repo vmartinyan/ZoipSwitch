@@ -13,6 +13,7 @@ namespace ZoipSwitch.Models
         [Key]
         public int case_type_id { get; set; }
 
+        [Display(Name = "Case Type")]
         public string case_type_name { get; set; }
     }
 }

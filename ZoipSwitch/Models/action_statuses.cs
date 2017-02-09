@@ -13,6 +13,7 @@ namespace ZoipSwitch.Models
         [Key]
         public int action_status_id { get; set; }
 
+        [Display(Name = "Action Status")]
         public string action_status_name { get; set; }
     }
 }

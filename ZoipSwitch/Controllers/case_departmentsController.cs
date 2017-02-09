@@ -13,7 +13,7 @@ using ZoipSwitch.DAL;
 
 namespace ZoipSwitch.Controllers
 {
-    public class case_statusesController : Controller
+    public class case_departmentsController : Controller
     {
         private Context db = new Context();
 
@@ -30,15 +30,15 @@ namespace ZoipSwitch.Controllers
             using (db)
             {
 
-                IQueryable<case_statuses> case_statuses = db.Case_Statuses;
+                IQueryable<case_departments> case_departments = db.Case_Departments;
                 if (!string.IsNullOrEmpty(name))
                 {
-                    case_statuses = case_statuses.Where(p => p.case_status_name.StartsWith(name));
+                    case_departments = case_departments.Where(p => p.case_department_name.StartsWith(name));
                 }
-                DataSourceResult result = case_statuses.ToDataSourceResult(request);
+                DataSourceResult result = case_departments.ToDataSourceResult(request);
                 return Json(result);
             }
-         
+
         }
 
         //[Authorize(Roles = "administrator")]
@@ -50,14 +50,14 @@ namespace ZoipSwitch.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                case_statuses case_statuses = db.Case_Statuses.Find(id);
-                if (case_statuses == null)
+                case_departments case_departments = db.Case_Departments.Find(id);
+                if (case_departments == null)
                 {
                     return HttpNotFound();
                 }
                 else
                 {
-                    return View("Details", case_statuses);
+                    return View("Details", case_departments);
                 }
             }
         }
@@ -65,33 +65,33 @@ namespace ZoipSwitch.Controllers
         //[Authorize(Roles = "administrator")]
         public ActionResult Create()
         {
-            var item = new case_statuses();
+            var item = new case_departments();
             return View("Template", item);
         }
 
         //[Authorize(Roles = "administrator")]
-        public ActionResult Save(case_statuses case_statuses)
+        public ActionResult Save(case_departments case_departments)
         {
             try
             {
                 using (db)
                 {
-                    if (case_statuses.case_status_id == 0)
+                    if (case_departments.case_department_id == 0)
                     {
-                        var entity = new case_statuses
+                        var entity = new case_departments
                         {
-                            case_status_id = case_statuses.case_status_id,
-                            case_status_name = case_statuses.case_status_name
+                            case_department_id = case_departments.case_department_id,
+                            case_department_name = case_departments.case_department_name
 
                         };
-                        db.Case_Statuses.Add(entity);
+                        db.Case_Departments.Add(entity);
                     }
                     else
                     {
-                        case_statuses item = db.Case_Statuses.Find(case_statuses.case_status_id);
-                        item.case_status_id = case_statuses.case_status_id;
-                        item.case_status_name = case_statuses.case_status_name;
-                        db.Case_Statuses.Attach(item);
+                        case_departments item = db.Case_Departments.Find(case_departments.case_department_id);
+                        item.case_department_id = case_departments.case_department_id;
+                        item.case_department_name = case_departments.case_department_name;
+                        db.Case_Departments.Attach(item);
                         db.Entry(item).State = EntityState.Modified;
                     }
 
@@ -115,7 +115,7 @@ namespace ZoipSwitch.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                case_statuses item = db.Case_Statuses.Find(id);
+                case_departments item = db.Case_Departments.Find(id);
                 if (item == null)
                 {
                     return HttpNotFound();
@@ -134,9 +134,9 @@ namespace ZoipSwitch.Controllers
             {
                 using (db)
                 {
-                    case_statuses item = db.Case_Statuses.Find(id);
-                    db.Case_Statuses.Attach(item);
-                    db.Case_Statuses.Remove(item);
+                    case_departments item = db.Case_Departments.Find(id);
+                    db.Case_Departments.Attach(item);
+                    db.Case_Departments.Remove(item);
                     db.SaveChanges();
                 }
                 return Json("1", JsonRequestBehavior.AllowGet);

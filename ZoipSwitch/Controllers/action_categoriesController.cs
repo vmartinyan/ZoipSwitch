@@ -13,8 +13,9 @@ using ZoipSwitch.DAL;
 
 namespace ZoipSwitch.Controllers
 {
-    public class case_statusesController : Controller
+    public class action_categoriesController : Controller
     {
+        // GET: action_categories
         private Context db = new Context();
 
         //[Authorize(Roles = "administrator")]
@@ -30,15 +31,15 @@ namespace ZoipSwitch.Controllers
             using (db)
             {
 
-                IQueryable<case_statuses> case_statuses = db.Case_Statuses;
+                IQueryable<action_categories> action_categories = db.Action_Categories;
                 if (!string.IsNullOrEmpty(name))
                 {
-                    case_statuses = case_statuses.Where(p => p.case_status_name.StartsWith(name));
+                    action_categories = action_categories.Where(p => p.action_category_name.StartsWith(name));
                 }
-                DataSourceResult result = case_statuses.ToDataSourceResult(request);
+                DataSourceResult result = action_categories.ToDataSourceResult(request);
                 return Json(result);
             }
-         
+
         }
 
         //[Authorize(Roles = "administrator")]
@@ -50,14 +51,14 @@ namespace ZoipSwitch.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                case_statuses case_statuses = db.Case_Statuses.Find(id);
-                if (case_statuses == null)
+                action_categories action_categories = db.Action_Categories.Find(id);
+                if (action_categories == null)
                 {
                     return HttpNotFound();
                 }
                 else
                 {
-                    return View("Details", case_statuses);
+                    return View("Details", action_categories);
                 }
             }
         }
@@ -65,33 +66,33 @@ namespace ZoipSwitch.Controllers
         //[Authorize(Roles = "administrator")]
         public ActionResult Create()
         {
-            var item = new case_statuses();
+            var item = new action_categories();
             return View("Template", item);
         }
 
         //[Authorize(Roles = "administrator")]
-        public ActionResult Save(case_statuses case_statuses)
+        public ActionResult Save(action_categories action_categories)
         {
             try
             {
                 using (db)
                 {
-                    if (case_statuses.case_status_id == 0)
+                    if (action_categories.action_category_id == 0)
                     {
-                        var entity = new case_statuses
+                        var entity = new action_categories
                         {
-                            case_status_id = case_statuses.case_status_id,
-                            case_status_name = case_statuses.case_status_name
+                            action_category_id = action_categories.action_category_id,
+                            action_category_name = action_categories.action_category_name
 
                         };
-                        db.Case_Statuses.Add(entity);
+                        db.Action_Categories.Add(entity);
                     }
                     else
                     {
-                        case_statuses item = db.Case_Statuses.Find(case_statuses.case_status_id);
-                        item.case_status_id = case_statuses.case_status_id;
-                        item.case_status_name = case_statuses.case_status_name;
-                        db.Case_Statuses.Attach(item);
+                        action_categories item = db.Action_Categories.Find(action_categories.action_category_id);
+                        item.action_category_id = action_categories.action_category_id;
+                        item.action_category_name = action_categories.action_category_name;
+                        db.Action_Categories.Attach(item);
                         db.Entry(item).State = EntityState.Modified;
                     }
 
@@ -115,7 +116,7 @@ namespace ZoipSwitch.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                case_statuses item = db.Case_Statuses.Find(id);
+                action_categories item = db.Action_Categories.Find(id);
                 if (item == null)
                 {
                     return HttpNotFound();
@@ -134,9 +135,9 @@ namespace ZoipSwitch.Controllers
             {
                 using (db)
                 {
-                    case_statuses item = db.Case_Statuses.Find(id);
-                    db.Case_Statuses.Attach(item);
-                    db.Case_Statuses.Remove(item);
+                    action_categories item = db.Action_Categories.Find(id);
+                    db.Action_Categories.Attach(item);
+                    db.Action_Categories.Remove(item);
                     db.SaveChanges();
                 }
                 return Json("1", JsonRequestBehavior.AllowGet);

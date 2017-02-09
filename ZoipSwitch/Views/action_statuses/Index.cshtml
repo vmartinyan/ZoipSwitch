@@ -1,8 +1,8 @@
-﻿@model IEnumerable<ZoipSwitch.Models.case_statuses>
+﻿@model IEnumerable<ZoipSwitch.Models.action_statuses>
 @using Kendo.Mvc.UI
 
 @{
-    ViewBag.Title = "Case Status";
+    ViewBag.Title = "Action Status";
 }
 <div class="clear"></div>
 <div class="for-Toolbar">
@@ -22,7 +22,7 @@
             <div class="slidePanel-Content-fields">
                 <h4>Search</h4>
                 <div class="form-group margin-5-0">
-                    <input id="prm_case_statuses_name" class="k-textbox" placeholder="name" />
+                    <input id="prm_action_statuses_name" class="k-textbox" placeholder="name" />
                 </div>
                 <div class="form-group btns align-right">
                     <button class="btn btn-alt btn-hover btn-default" type="submit" id="rtSearch" onclick="return Search();">
@@ -41,32 +41,32 @@
 
 <script type="text/javascript">
     function Search() {
-        $("#case_statuses").data("kendoGrid").dataSource.read();
-        $("#case_statuses").data("kendoGrid").refresh();
+        $("#action_statuses").data("kendoGrid").dataSource.read();
+        $("#action_statuses").data("kendoGrid").refresh();
         return false;
     }
 
     function Clear() {
-        $("#prm_case_statuses_name").val("");
-        $("#case_statuses").data("kendoGrid").dataSource.read();
-        $("#case_statuses").data("kendoGrid").refresh();
+        $("#prm_action_statuses_name").val("");
+        $("#action_statuses").data("kendoGrid").dataSource.read();
+        $("#action_statuses").data("kendoGrid").refresh();
         return false;
     }
 
     function getParameter() {
         return {
-            name: $("#prm_case_statuses_name").val()
+            name: $("#prm_action_statuses_name").val()
         };
     }
 </script>
 
 
-@(Html.Kendo().Grid<ZoipSwitch.Models.case_statuses>()
-                        .Name("case_statuses")
+@(Html.Kendo().Grid<ZoipSwitch.Models.action_statuses>()
+                        .Name("action_statuses")
                         .Columns(columns =>
                         {
-                            columns.Bound(model => model.case_status_id).Hidden();
-                            columns.Bound(model => model.case_status_name);
+                            columns.Bound(model => model.action_status_id).Hidden();
+                            columns.Bound(model => model.action_status_name);
                             columns.Command(commands =>
                             {
                                 commands.Custom("Update").Text(" ").Click("Update");
@@ -87,9 +87,9 @@
                         //.HtmlAttributes(new { style = "height:620px;" })
                         .DataSource(dataSource => dataSource
                         .Ajax()
-                        .Read(read => read.Action("Read", "case_statuses").Data("getParameter"))
+                        .Read(read => read.Action("Read", "action_statuses").Data("getParameter"))
                         .PageSize(15)
-                        .Model(model => model.Id(p => p.case_status_id))
+                        .Model(model => model.Id(p => p.action_status_id))
 )
 )
 @(Html.Kendo().Window().Name("crtWindow").Width(450)
@@ -118,7 +118,7 @@
         window.content("");
         window.title("Create");
         window.refresh({
-            url: "@Url.Action("Create", "case_statuses")"
+            url: "@Url.Action("Create", "action_statuses")"
         });
     window.center();
     window.open();
@@ -128,12 +128,12 @@
     function Update(e) {
         var window = $("#crtWindow").data("kendoWindow");
         var row = $(e.target).closest("tr");
-        var grid = $("#case_statuses").data("kendoGrid");
+        var grid = $("#action_statuses").data("kendoGrid");
         var dataItem = grid.dataItem(row);
         window.content("");
         window.title("Edit");
         window.refresh({
-            url: "@Url.Action("Update", "case_statuses")" + "/" + dataItem.case_status_id
+            url: "@Url.Action("Update", "action_statuses")" + "/" + dataItem.action_status_id
         });
     window.center();
     window.open();
@@ -142,7 +142,7 @@
 
     function Delete(e) {
         var row = $(e.target).closest("tr");
-        var grid = $("#case_statuses").data("kendoGrid");
+        var grid = $("#action_statuses").data("kendoGrid");
         var dataItem = grid.dataItem(row);
         var r = confirm("Are you sure to delete the record?");
         if (r == false) {
@@ -151,11 +151,11 @@
         var rt = false;
         var dt;
         var q = $.ajax({
-            url: '@Url.Action("Delete", "case_statuses")',
+            url: '@Url.Action("Delete", "action_statuses")',
             dataType: "json",
             type: "GET",
             data: {
-                id: dataItem.case_status_id
+                id: dataItem.action_status_id
             },
             async: false,
             success: function(data) {
@@ -168,8 +168,8 @@
             }
         });
         if (rt == true) {
-            $("#case_statuses").data("kendoGrid").dataSource.read();
-            $("#case_statuses").data("kendoGrid").refresh();
+            $("#action_statuses").data("kendoGrid").dataSource.read();
+            $("#action_statuses").data("kendoGrid").refresh();
         } else {
             alert(dt);
             return false;
@@ -179,7 +179,7 @@
 
     function Details() {
         var window = $("#window").data("kendoWindow");
-        var grid = $("#case_statuses").data("kendoGrid");
+        var grid = $("#action_statuses").data("kendoGrid");
         var selectedItem = grid.dataItem(grid.select());
         if (selectedItem == null) {
             alert("No item selected");
@@ -188,7 +188,7 @@
         window.content("");
         window.title("Details");
         window.refresh({
-            url: "@Url.Action("Details", "case_statuses")" + "/" + selectedItem.case_status_id
+            url: "@Url.Action("Details", "action_statuses")" + "/" + selectedItem.action_status_id
         });
         window.center();
         window.open();
@@ -198,8 +198,8 @@
         kendo.ui.progress(e.sender.element, true);
     }
     function onClose() {
-        $("#case_statuses").data("kendoGrid").dataSource.read();
-        $("#case_statuses").data("kendoGrid").refresh();
+        $("#action_statuses").data("kendoGrid").dataSource.read();
+        $("#action_statuses").data("kendoGrid").refresh();
     }
     function onRefresh(e) {
         kendo.ui.progress(e.sender.element, false);

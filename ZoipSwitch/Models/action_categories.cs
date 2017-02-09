@@ -13,6 +13,7 @@ namespace ZoipSwitch.Models
         [Key]
         public int action_category_id { get; set; }
 
+        [Display(Name = "Action Category")]
         public string action_category_name { get; set; }
     }
 }

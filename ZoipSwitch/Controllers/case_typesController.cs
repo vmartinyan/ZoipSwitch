@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,14 +8,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Kendo.Mvc.Extensions;
-using Kendo.Mvc.UI;
-using ZoipSwitch.Models;
 using ZoipSwitch.DAL;
+using ZoipSwitch.Models;
 
 namespace ZoipSwitch.Controllers
 {
-    public class case_statusesController : Controller
+    public class case_typesController : Controller
     {
         private Context db = new Context();
 
@@ -30,15 +30,15 @@ namespace ZoipSwitch.Controllers
             using (db)
             {
 
-                IQueryable<case_statuses> case_statuses = db.Case_Statuses;
+                IQueryable<case_types> case_types = db.Case_Types;
                 if (!string.IsNullOrEmpty(name))
                 {
-                    case_statuses = case_statuses.Where(p => p.case_status_name.StartsWith(name));
+                    case_types = case_types.Where(p => p.case_type_name.StartsWith(name));
                 }
-                DataSourceResult result = case_statuses.ToDataSourceResult(request);
+                DataSourceResult result = case_types.ToDataSourceResult(request);
                 return Json(result);
             }
-         
+
         }
 
         //[Authorize(Roles = "administrator")]
@@ -50,14 +50,14 @@ namespace ZoipSwitch.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                case_statuses case_statuses = db.Case_Statuses.Find(id);
-                if (case_statuses == null)
+                case_types case_types = db.Case_Types.Find(id);
+                if (case_types == null)
                 {
                     return HttpNotFound();
                 }
                 else
                 {
-                    return View("Details", case_statuses);
+                    return View("Details", case_types);
                 }
             }
         }
@@ -65,33 +65,33 @@ namespace ZoipSwitch.Controllers
         //[Authorize(Roles = "administrator")]
         public ActionResult Create()
         {
-            var item = new case_statuses();
+            var item = new case_types();
             return View("Template", item);
         }
 
         //[Authorize(Roles = "administrator")]
-        public ActionResult Save(case_statuses case_statuses)
+        public ActionResult Save(case_types case_types)
         {
             try
             {
                 using (db)
                 {
-                    if (case_statuses.case_status_id == 0)
+                    if (case_types.case_type_id == 0)
                     {
-                        var entity = new case_statuses
+                        var entity = new case_types
                         {
-                            case_status_id = case_statuses.case_status_id,
-                            case_status_name = case_statuses.case_status_name
+                            case_type_id = case_types.case_type_id,
+                            case_type_name = case_types.case_type_name
 
                         };
-                        db.Case_Statuses.Add(entity);
+                        db.Case_Types.Add(entity);
                     }
                     else
                     {
-                        case_statuses item = db.Case_Statuses.Find(case_statuses.case_status_id);
-                        item.case_status_id = case_statuses.case_status_id;
-                        item.case_status_name = case_statuses.case_status_name;
-                        db.Case_Statuses.Attach(item);
+                        case_types item = db.Case_Types.Find(case_types.case_type_id);
+                        item.case_type_id = case_types.case_type_id;
+                        item.case_type_name = case_types.case_type_name;
+                        db.Case_Types.Attach(item);
                         db.Entry(item).State = EntityState.Modified;
                     }
 
@@ -115,7 +115,7 @@ namespace ZoipSwitch.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                case_statuses item = db.Case_Statuses.Find(id);
+                case_types item = db.Case_Types.Find(id);
                 if (item == null)
                 {
                     return HttpNotFound();
@@ -134,9 +134,9 @@ namespace ZoipSwitch.Controllers
             {
                 using (db)
                 {
-                    case_statuses item = db.Case_Statuses.Find(id);
-                    db.Case_Statuses.Attach(item);
-                    db.Case_Statuses.Remove(item);
+                    case_types item = db.Case_Types.Find(id);
+                    db.Case_Types.Attach(item);
+                    db.Case_Types.Remove(item);
                     db.SaveChanges();
                 }
                 return Json("1", JsonRequestBehavior.AllowGet);

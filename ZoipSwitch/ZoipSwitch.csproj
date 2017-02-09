@@ -208,7 +208,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\action_categoriesController.cs" />
+    <Compile Include="Controllers\action_statusesController.cs" />
+    <Compile Include="Controllers\action_typesController.cs" />
+    <Compile Include="Controllers\case_departmentsController.cs" />
     <Compile Include="Controllers\case_statusesController.cs" />
+    <Compile Include="Controllers\case_typesController.cs" />
+    <Compile Include="Controllers\case_urgenciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DAL\Context.cs" />
@@ -2690,6 +2696,24 @@
     <Content Include="Views\case_statuses\Index.cshtml" />
     <Content Include="Views\case_statuses\Template.cshtml" />
     <Content Include="Views\case_statuses\Details.cshtml" />
+    <Content Include="Views\case_types\Details.cshtml" />
+    <Content Include="Views\case_types\Index.cshtml" />
+    <Content Include="Views\case_types\Template.cshtml" />
+    <Content Include="Views\case_urgencies\Details.cshtml" />
+    <Content Include="Views\case_urgencies\Index.cshtml" />
+    <Content Include="Views\case_urgencies\Template.cshtml" />
+    <Content Include="Views\case_departments\Details.cshtml" />
+    <Content Include="Views\case_departments\Index.cshtml" />
+    <Content Include="Views\case_departments\Template.cshtml" />
+    <Content Include="Views\action_categories\Details.cshtml" />
+    <Content Include="Views\action_categories\Index.cshtml" />
+    <Content Include="Views\action_categories\Template.cshtml" />
+    <Content Include="Views\action_statuses\Details.cshtml" />
+    <Content Include="Views\action_statuses\Index.cshtml" />
+    <Content Include="Views\action_statuses\Template.cshtml" />
+    <Content Include="Views\action_types\Details.cshtml" />
+    <Content Include="Views\action_types\Index.cshtml" />
+    <Content Include="Views\action_types\Template.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
