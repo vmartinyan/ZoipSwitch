@@ -1,0 +1,14 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+@(Html.Kendo().ComboBox()
+                    .Name("operator_id")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .Filter(FilterType.StartsWith)
+                    .BindTo(ViewBag.vbOperators)
+                    .HtmlAttributes(new { data_value_primitive = true })
+)

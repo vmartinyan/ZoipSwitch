@@ -24,6 +24,11 @@ namespace ZoipSwitch.DAL
         public DbSet<residents> Residents { get; set; }
         public DbSet<operators> Operators { get; set; }
         public DbSet<agents> Agents { get; set; }
+        public DbSet<actions> Actions { get; set; }
+        public DbSet<cases> Cases { get; set; }
+
+        public DbSet<vwAction> VwAction { get; set; }
+        public DbSet<vwCases> VwCases { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

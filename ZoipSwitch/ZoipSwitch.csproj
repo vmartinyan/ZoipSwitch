@@ -208,9 +208,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\actionsController.cs" />
     <Compile Include="Controllers\action_categoriesController.cs" />
     <Compile Include="Controllers\action_statusesController.cs" />
     <Compile Include="Controllers\action_typesController.cs" />
+    <Compile Include="Controllers\casesController.cs" />
     <Compile Include="Controllers\case_departmentsController.cs" />
     <Compile Include="Controllers\case_statusesController.cs" />
     <Compile Include="Controllers\case_typesController.cs" />
@@ -224,10 +226,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\actions.cs" />
     <Compile Include="Models\action_categories.cs" />
     <Compile Include="Models\action_statuses.cs" />
     <Compile Include="Models\action_types.cs" />
     <Compile Include="Models\agents.cs" />
+    <Compile Include="Models\cases.cs" />
     <Compile Include="Models\case_departments.cs" />
     <Compile Include="Models\case_statuses.cs" />
     <Compile Include="Models\case_types.cs" />
@@ -236,6 +240,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\operators.cs" />
     <Compile Include="Models\residents.cs" />
+    <Compile Include="Models\vwAction.cs" />
+    <Compile Include="Models\vwCases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -2725,9 +2731,17 @@
     <Content Include="Views\operators\Details.cshtml" />
     <Content Include="Views\operators\Index.cshtml" />
     <Content Include="Views\operators\Template.cshtml" />
+    <Content Include="Views\cases\Index.cshtml" />
+    <Content Include="Views\cases\Template.cshtml" />
+    <Content Include="Views\cases\EditorTemplates\action_categories.cshtml" />
+    <Content Include="Views\cases\EditorTemplates\action_types.cshtml" />
+    <Content Include="Views\cases\EditorTemplates\action_statuses.cshtml" />
+    <Content Include="Views\cases\EditorTemplates\residents.cshtml" />
+    <Content Include="Views\cases\EditorTemplates\operators.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\actions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

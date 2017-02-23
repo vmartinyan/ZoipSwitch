@@ -1,0 +1,14 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+@(Html.Kendo().ComboBox()
+                    .Name("resident_id")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .Filter(FilterType.StartsWith)
+                    .BindTo(ViewBag.vbResidents)
+                    .HtmlAttributes(new { data_value_primitive = true })
+)

@@ -1,0 +1,14 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+@(Html.Kendo().ComboBox()
+                    .Name("action_category_id")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .Filter(FilterType.StartsWith)
+                    .BindTo(ViewBag.vbActionCategories)
+                    .HtmlAttributes(new { data_value_primitive = true })
+)
