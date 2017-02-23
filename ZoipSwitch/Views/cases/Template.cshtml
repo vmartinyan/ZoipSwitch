@@ -156,13 +156,13 @@
             });
         $("#dtSave")
             .click(function (e) {
-                var errTempl = '<div class="k-widget k-tooltip k-tooltip-validation" style="margin:0.5em"><span class="k-icon k-warning"> </span>#=message#<div class="k-callout k-callout-n"></div></div>';
-                var validator = $(".create-item").kendoValidator({
-                    errorTemplate: errTempl
-                }).data("kendoValidator");
-                if (!validator.validate()) {
-                    return false;
-                }
+                //var errTempl = '<div class="k-widget k-tooltip k-tooltip-validation" style="margin:0.5em"><span class="k-icon k-warning"> </span>#=message#<div class="k-callout k-callout-n"></div></div>';
+                //var validator = $(".create-item").kendoValidator({
+                //    errorTemplate: errTempl
+                //}).data("kendoValidator");
+                //if (!validator.validate()) {
+                //    return false;
+                //}
 
                 var item = new Object();
                 item.case_id = '@Model.case_id';
@@ -176,7 +176,7 @@
                 item.completing_operator_name = $("#completing_operator_name").val();
 
 
-                var actionGrid = $("#actions").data("kendoGrid"), parameterMap = drugGrid.dataSource.transport.parameterMap;
+                var actionGrid = $("#actions").data("kendoGrid"), parameterMap = actionGrid.dataSource.transport.parameterMap;
                 var currentActionData = actionGrid.dataSource.data();
                     var rAction = [];
                     for (var i = 0; i < currentActionData.length; i++) {
