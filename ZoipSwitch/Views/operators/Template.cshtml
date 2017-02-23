@@ -1,0 +1,121 @@
+﻿@model ZoipSwitch.Models.operators
+
+@{
+    Layout = null;
+}
+
+<div class="create-item">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.operator_id)
+
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label align-right" })
+        @Html.Kendo().TextBoxFor(model => model.name)
+        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.lastname, htmlAttributes: new { @class = "control-label align-right" })
+        @Html.Kendo().TextBoxFor(model => model.lastname)
+        @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.extension, new { @class = "control-label" })
+        <br />
+        @(Html.Kendo().ComboBoxFor(model => model.extension)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .Placeholder("-- Select --")
+                            .Filter(FilterType.StartsWith)
+                            .BindTo(ViewBag.vbextensions)
+                            .HtmlAttributes(new { @class = "input-item" })
+        )
+        @Html.ValidationMessageFor(model => model.extension)
+    </div>
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.birthdate, htmlAttributes: new { @class = "control-label align-right" })
+        <br />
+        @Html.Kendo().DatePickerFor(model => model.birthdate)
+        @Html.ValidationMessageFor(model => model.birthdate, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label align-right" })
+        @Html.Kendo().TextBoxFor(model => model.phone)
+        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label align-right" })
+        @Html.Kendo().TextBoxFor(model => model.email)
+        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group margin-5-0 align-right">
+        <button class="btn btn-alt btn-hover btn-default" id="dtSave">
+            <span>Save</span>
+            <i class="glyph-icon icon-floppy-o"></i>
+        </button>
+        <button class="btn btn-alt btn-hover btn-default" id="dtCancel">
+            <span>Close</span>
+            <i class="glyph-icon icon-elusive-cancel-circled2"></i>
+        </button>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#dtCancel")
+            .click(function () {
+                if ($(this).closest(".k-window-content").data("kendoWindow"))
+                    $(this).closest(".k-window-content").data("kendoWindow").close();
+            });
+        $("#dtSave")
+            .click(function (e) {
+
+                var item = new Object();
+                item.operator_id = $("#operator_id").val();
+                item.extension = $("#extension").val();
+                item.name = $("#name").val();
+                item.lastname = $("#lastname").val();
+                item.birthdate = $("#birthdate").val();
+                item.phone = $("#phone").val();
+                item.email = $("#email").val();
+
+                var rt = false;
+                var dt;
+                var q = $.ajax({
+                    url: '@Url.Action("Save", "operators")',
+                    dataType: "json",
+                    type: "POST",
+                    data: JSON.stringify({ operators: item }),
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    success: function (data) {
+                        dt = data;
+                        rt = true;
+                    },
+                    error: function (xhr) {
+                        dt = xhr;
+                        rt = false;
+                    }
+                });
+                if (rt == true) {
+                    if (dt != "1") {
+                        alert(JSON.stringify(dt));
+                    }
+                    else {
+                        if ($(this).closest(".k-window-content").data("kendoWindow"))
+                            $(this).closest(".k-window-content").data("kendoWindow").close();
+                    }
+                }
+                else {
+                    alert(dt);
+                    return false;
+                }
+
+            });
+    });
+</script>
+
+

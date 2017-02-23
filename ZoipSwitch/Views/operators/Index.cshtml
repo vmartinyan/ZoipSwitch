@@ -1,0 +1,237 @@
+﻿@model IEnumerable<ZoipSwitch.Models.operators>
+@using Kendo.Mvc.UI
+
+@{
+    ViewBag.Title = "Operators";
+}
+<div class="clear"></div>
+<div class="for-Toolbar">
+    @(Html.Kendo().ToolBar()
+    .Name("ToolBar")
+    .Items(items =>
+    {
+        items.Add().Template("<button class=\"btn btn-alt btn-hover btn-success toolBtn\" onclick=\"return Create(); \"><span>Create</span><i class=\"glyph-icon icon-plus\"></i></button>");
+        items.Add().Template("<button class=\"btn btn-alt btn-hover btn-info toolBtn\" onclick=\"return Details(); \"><span>Details</span><i class=\"glyph-icon icon-list-ul\"></i></button>");
+    })
+    )
+    @* Search Panel - Right Slide *@
+    <div class="right-slidePanel">
+        <div class="slidePanel-Content">
+            <div class="slidePanel-btn">
+            </div>
+            <div class="slidePanel-Content-fields">
+                <h4>Search</h4>
+                <div class="form-group margin-5-0">
+                    <input id="prm_operator_name" class="k-textbox" placeholder="Name" />
+                </div>
+                <div class="form-group margin-5-0">
+                    <input id="prm_operator_lastname" class="k-textbox" placeholder="Last Name" />
+                </div>
+                <div class="form-group margin-5-0">
+                    <input id="prm_operator_ext" class="k-textbox" placeholder="Extension" />
+                </div>
+                <div class="form-group margin-5-0">
+                    <input id="prm_operator_birthdate" class="k-textbox" placeholder="Birth Date" />
+                </div>
+                <div class="form-group margin-5-0">
+                    <input id="prm_operator_phone" class="k-textbox" placeholder="Phone" />
+                </div>
+                <div class="form-group margin-5-0">
+                    <input id="prm_operator_email" class="k-textbox" placeholder="Email" />
+                </div>
+                <div class="form-group btns align-right">
+                    <button class="btn btn-alt btn-hover btn-default" type="submit" id="rtSearch" onclick="return Search();">
+                        <span>Search</span>
+                        <i class="glyph-icon icon-search"></i>
+                    </button>
+                    <button class="btn btn-alt btn-hover btn-default" type="submit" onclick="return Clear();">
+                        <span>Clean</span>
+                        <i class="glyph-icon icon-elusive-cancel-circled2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function Search() {
+        $("#operators").data("kendoGrid").dataSource.read();
+        $("#operators").data("kendoGrid").refresh();
+        return false;
+    }
+
+    function Clear() {
+        $("#prm_operator_name").val("");
+        $("#prm_operator_lastname").val("");
+        //$("#prm_operator_birthdate").val("");
+        $("#prm_operator_ext").val("");
+        $("#prm_operator_phone").val("");
+        $("#prm_operator_email").val("");
+        $("#operators").data("kendoGrid").dataSource.read();
+        $("#operators").data("kendoGrid").refresh();
+        return false;
+    }
+
+    function getParameter() {
+        return {
+            name: $("#prm_operator_name").val(),
+            lastname: $("#prm_operator_lastname").val(),
+            //birthdate: $("#prm_operator_birthdate").val(),
+            ext: $("#prm_operator_ext").val(),
+            phone: $("#prm_operator_phone").val(),
+            email: $("#prm_operator_email").val()
+        };
+    }
+</script>
+
+
+@(Html.Kendo().Grid<ZoipSwitch.Models.operators>()
+                        .Name("operators")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(model => model.operator_id).Hidden();
+                            columns.Bound(model => model.name);
+                            columns.Bound(model => model.lastname);
+                            columns.Bound(model => model.ext);
+                            columns.Bound(model => model.birthdate);
+                            columns.Bound(model => model.phone);
+                            columns.Bound(model => model.email);
+                            columns.Command(commands =>
+                            {
+                                commands.Custom("Update").Text(" ").Click("Update");
+                                commands.Custom("Delete").Text(" ").Click("Delete");
+                            }).Title("Commands").Width(110);
+                        })
+                        .Selectable(s => s.Mode(Kendo.Mvc.UI.GridSelectionMode.Single))
+                        .Events(e => e.DataBound("onRowBound"))
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5))
+                        .Filterable()
+                        .Scrollable()
+                        .Resizable(resize => resize.Columns(true))
+                        .Reorderable(reorder => reorder.Columns(true))
+                        .Sortable()
+                        //.HtmlAttributes(new { style = "height:620px;" })
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Read(read => read.Action("Read", "operators").Data("getParameter"))
+                        .PageSize(15)
+                        .Model(model => model.Id(p => p.operator_id))
+)
+)
+@(Html.Kendo().Window().Name("crtWindow").Width(450)
+            .Height(500).Draggable()
+            .Resizable().Content("")
+            .Modal(true)
+            .Actions(actions => actions.Pin().Close())
+            .Visible(false)
+            .Events(events => events
+            .Close("onClose").Open("onOpen").Refresh("onRefresh"))
+)
+
+@(Html.Kendo().Window().Name("window").Width(550)
+            .Height(280).Draggable()
+            .Resizable().Content("")
+            .Modal(true)
+            .Actions(actions => actions.Pin().Close())
+            .Visible(false)
+            .Events(events => events
+            .Close("onClose").Open("onOpen").Refresh("onRefresh"))
+)
+
+<script>
+    function Create() {
+        var window = $("#crtWindow").data("kendoWindow");
+        window.content("");
+        window.title("Create");
+        window.refresh({
+            url: "@Url.Action("Create", "operators")"
+        });
+    window.center();
+    window.open();
+    return false;
+    }
+
+    function Update(e) {
+        var window = $("#crtWindow").data("kendoWindow");
+        var row = $(e.target).closest("tr");
+        var grid = $("#operators").data("kendoGrid");
+        var dataItem = grid.dataItem(row);
+        window.content("");
+        window.title("Edit");
+        window.refresh({
+            url: "@Url.Action("Update", "operators")" + "/" + dataItem.operator_id
+        });
+    window.center();
+    window.open();
+    return false;
+    }
+
+    function Delete(e) {
+        var row = $(e.target).closest("tr");
+        var grid = $("#operators").data("kendoGrid");
+        var dataItem = grid.dataItem(row);
+        var r = confirm("Are you sure to delete the record?");
+        if (r == false) {
+            return false;
+        }
+        var rt = false;
+        var dt;
+        var q = $.ajax({
+            url: '@Url.Action("Delete", "operators")',
+            dataType: "json",
+            type: "GET",
+            data: {
+                id: dataItem.operator_id
+            },
+            async: false,
+            success: function(data) {
+                dt = data;
+                rt = true;
+            },
+            error: function(xhr) {
+                dt = xhr;
+                rt = false;
+            }
+        });
+        if (rt == true) {
+            $("#operators").data("kendoGrid").dataSource.read();
+            $("#operators").data("kendoGrid").refresh();
+        } else {
+            alert(dt);
+            return false;
+        }
+        return false;
+    }
+
+    function Details() {
+        var window = $("#window").data("kendoWindow");
+        var grid = $("#operators").data("kendoGrid");
+        var selectedItem = grid.dataItem(grid.select());
+        if (selectedItem == null) {
+            alert("No item selected");
+            return false;
+        }
+        window.content("");
+        window.title("Details");
+        window.refresh({
+            url: "@Url.Action("Details", "operators")" + "/" + selectedItem.operator_id
+        });
+        window.center();
+        window.open();
+    }
+
+    function onOpen(e) {
+        kendo.ui.progress(e.sender.element, true);
+    }
+    function onClose() {
+        $("#operators").data("kendoGrid").dataSource.read();
+        $("#operators").data("kendoGrid").refresh();
+    }
+    function onRefresh(e) {
+        kendo.ui.progress(e.sender.element, false);
+    }
+</script>

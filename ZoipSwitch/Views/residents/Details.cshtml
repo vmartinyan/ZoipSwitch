@@ -1,0 +1,27 @@
+﻿@model ZoipSwitch.Models.residents
+
+@{
+    Layout = null;
+}
+
+<div>
+    <table class="table table-striped details">
+        <tr>
+            <td class="col-xs-4 border-box" style="font-weight:bold; text-align:right">@Html.DisplayNameFor(model => model.resident_name)</td>
+            <td class="col-xs-8 border-box">@Html.DisplayFor(model => model.resident_name) @Html.DisplayFor(model => model.resident_lastname)</td>
+        </tr>
+        <tr>
+            <td class="col-xs-4 border-box" style="font-weight:bold; text-align:right">@Html.DisplayNameFor(model => model.resident_birthdate)</td>
+            <td class="col-xs-8 border-box">@Html.DisplayFor(model => model.resident_birthdate)</td>
+        </tr>
+        <tr>
+            <td class="col-xs-4 border-box" style="font-weight:bold; text-align:right">@Html.DisplayNameFor(model => model.resident_phone)</td>
+            <td class="col-xs-8 border-box">@Html.DisplayFor(model => model.resident_phone)</td>
+        </tr>
+        <tr>
+            <td class="col-xs-4 border-box" style="font-weight:bold; text-align:right">@Html.DisplayNameFor(model => model.resident_email)</td>
+            <td class="col-xs-8 border-box">@Html.DisplayFor(model => model.resident_email)</td>
+        </tr>
+    </table>
+</div>
+

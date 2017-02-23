@@ -1,0 +1,107 @@
+﻿@model ZoipSwitch.Models.residents
+
+@{
+    Layout = null;
+}
+
+<div class="create-item">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.resident_id)
+
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.resident_name, htmlAttributes: new { @class = "control-label align-right" })
+        @Html.Kendo().TextBoxFor(model => model.resident_name)
+        @Html.ValidationMessageFor(model => model.resident_name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.resident_lastname, htmlAttributes: new { @class = "control-label align-right" })
+        @Html.Kendo().TextBoxFor(model => model.resident_lastname)
+        @Html.ValidationMessageFor(model => model.resident_lastname, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.resident_birthdate, htmlAttributes: new { @class = "control-label align-right" })
+        <br />
+        @Html.Kendo().DatePickerFor(model => model.resident_birthdate)
+        @Html.ValidationMessageFor(model => model.resident_birthdate, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.resident_phone, htmlAttributes: new { @class = "control-label align-right" })
+        @Html.Kendo().TextBoxFor(model => model.resident_phone)
+        @Html.ValidationMessageFor(model => model.resident_phone, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group margin-5-0">
+        @Html.LabelFor(model => model.resident_email, htmlAttributes: new { @class = "control-label align-right" })
+        @Html.Kendo().TextBoxFor(model => model.resident_email)
+        @Html.ValidationMessageFor(model => model.resident_email, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group margin-5-0 align-right">
+        <button class="btn btn-alt btn-hover btn-default" id="dtSave">
+            <span>Save</span>
+            <i class="glyph-icon icon-floppy-o"></i>
+        </button>
+        <button class="btn btn-alt btn-hover btn-default" id="dtCancel">
+            <span>Close</span>
+            <i class="glyph-icon icon-elusive-cancel-circled2"></i>
+        </button>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#dtCancel")
+            .click(function () {
+                if ($(this).closest(".k-window-content").data("kendoWindow"))
+                    $(this).closest(".k-window-content").data("kendoWindow").close();
+            });
+        $("#dtSave")
+            .click(function (e) {
+
+                var item = new Object();
+                item.resident_id = $("#resident_id").val();
+                item.resident_name = $("#resident_name").val();
+                item.resident_lastname = $("#resident_lastname").val();
+                item.resident_birthdate = $("#resident_birthdate").val();
+                item.resident_phone = $("#resident_phone").val();
+                item.resident_email = $("#resident_email").val();
+
+                var rt = false;
+                var dt;
+                var q = $.ajax({
+                    url: '@Url.Action("Save", "residents")',
+                    dataType: "json",
+                    type: "POST",
+                    data: JSON.stringify({ residents: item }),
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    success: function (data) {
+                        dt = data;
+                        rt = true;
+                    },
+                    error: function (xhr) {
+                        dt = xhr;
+                        rt = false;
+                    }
+                });
+                if (rt == true) {
+                    if (dt != "1") {
+                        alert(JSON.stringify(dt));
+                    }
+                    else {
+                        if ($(this).closest(".k-window-content").data("kendoWindow"))
+                            $(this).closest(".k-window-content").data("kendoWindow").close();
+                    }
+                }
+                else {
+                    alert(dt);
+                    return false;
+                }
+
+            });
+    });
+</script>
+
+

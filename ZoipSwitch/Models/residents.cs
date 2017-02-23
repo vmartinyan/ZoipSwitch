@@ -20,7 +20,9 @@ namespace ZoipSwitch.Models
         public string resident_lastname { get; set; }
 
         [Display(Name = "Birth Date")]
-        public DataType resident_birthdate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime resident_birthdate { get; set; }
 
         [Display(Name = "Phone")]
         public string resident_phone { get; set; }
