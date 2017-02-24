@@ -65,15 +65,15 @@
                         .Name("cases")
                         .Columns(columns =>
                         {
-                            columns.Bound(model => model.case_id).Hidden();
-                            columns.Bound(model => model.case_status_name);
-                            columns.Bound(model => model.case_type_name);
-                            columns.Bound(model => model.case_urgency_name);
+                            columns.Bound(model => model.case_id).Width(75);
+                            columns.Bound(model => model.case_status_name).Width(100);
+                            columns.Bound(model => model.case_type_name).Width(130);
+                            columns.Bound(model => model.case_urgency_name).Width(130);
                             columns.Bound(model => model.case_department_name);
-                            columns.Bound(model => model.start_date);
-                            columns.Bound(model => model.end_date);
-                            columns.Bound(model => model.creator_operator_name);
-                            columns.Bound(model => model.completing_operator_name);
+                            columns.Bound(model => model.start_date).Width(120);
+                            columns.Bound(model => model.end_date).Width(120);
+                            columns.Bound(model => model.creator_operator_name).Width(200);
+                            columns.Bound(model => model.completing_operator_name).Width(200);
                             columns.Command(commands =>
                             {
                                 commands.Custom("Update").Text(" ").Click("Update");
@@ -100,8 +100,8 @@
                         .Model(model => model.Id(p => p.case_id))
 )
 )
-@(Html.Kendo().Window().Name("crtWindow").Width(450)
-            .Height(150).Draggable()
+@(Html.Kendo().Window().Name("crtWindow")
+            .Draggable()
             .Resizable().Content("")
             .Modal(true)
             .Actions(actions => actions.Pin().Close())
@@ -110,8 +110,8 @@
             .Close("onClose").Open("onOpen").Refresh("onRefresh"))
 )
 
-@(Html.Kendo().Window().Name("window").Width(550)
-            .Height(100).Draggable()
+@(Html.Kendo().Window().Name("window")
+            .Draggable()
             .Resizable().Content("")
             .Modal(true)
             .Actions(actions => actions.Pin().Close())
@@ -129,7 +129,7 @@
             url: "@Url.Action("Create", "cases")"
         });
     window.center();
-    window.open();
+    window.maximize().open();
     return false;
     }
 
@@ -144,7 +144,7 @@
             url: "@Url.Action("Update", "cases")" + "/" + dataItem.case_id
         });
     window.center();
-    window.open();
+    window.maximize().open();
     return false;
     }
 
@@ -221,21 +221,22 @@
           .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
           .Items(items =>
           {
-          items.Add().Text("Cases").Content(@<text>
+          items.Add().Text("Actions").Content(@<text>
         @(Html.Kendo().Grid<ZoipSwitch.Models.vwAction>()
               .Name("Cases_#=case_id#")
               .Columns(columns =>
               {
                   columns.Bound(product => product.action_id).Hidden();
-                  columns.Bound(product => product.date);
-                  columns.Bound(product => product.action_category_name);
-                  columns.Bound(product => product.action_type_name);
-                  columns.Bound(product => product.action_status_name);
-                  columns.Bound(product => product.resident_name);
-                  columns.Bound(product => product.resident_lastname);
-                  columns.Bound(product => product.name);
-                  columns.Bound(product => product.lastname);
-                  columns.Bound(product => product.file);
+                  columns.Bound(product => product.date).Width(100);
+                  columns.Bound(product => product.action_category_name).Width(130);
+                  columns.Bound(product => product.action_type_name).Width(150);
+                  columns.Bound(product => product.action_status_name).Width(130);
+                  columns.Bound(product => product.resident).Width(200);
+                  //columns.Bound(product => product.resident_lastname);
+                  columns.Bound(product => product.operatoe_name).Width(200);
+                  //columns.Bound(product => product.lastname);
+                  columns.Bound(product => product.file).Width(70);
+                  columns.Bound(product => product.description);
               })
              .DataSource(dataSource => dataSource
                       .Ajax()

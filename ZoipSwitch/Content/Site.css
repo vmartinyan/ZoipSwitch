@@ -94,6 +94,7 @@
 }
 
 .right-slidePanel input,
-.create-item input {
+.create-item input,
+.create-item .input-item {
     width: 100%;
 }

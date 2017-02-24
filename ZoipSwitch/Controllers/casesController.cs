@@ -126,6 +126,7 @@ namespace ZoipSwitch.Controllers
         {
             using (db)
             {
+                OrganizeViewBugs(db);
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -194,11 +195,11 @@ namespace ZoipSwitch.Controllers
             ViewBag.vbActionStatuses = lActionStatuses;
 
             var lResidents = new List<SelectListItem>();
-            lResidents = db.Residents.Select(x => new SelectListItem { Text = x.resident_name, Value = x.resident_id.ToString() }).ToList();
+            lResidents = db.Residents.Select(x => new SelectListItem { Text = x.resident_name + " " + x.resident_lastname, Value = x.resident_id.ToString() }).ToList();
             ViewBag.vbResidents = lResidents;
 
             var lOperators = new List<SelectListItem>();
-            lOperators = db.Operators.Select(x => new SelectListItem { Text = x.name, Value = x.operator_id.ToString() }).ToList();
+            lOperators = db.Operators.Select(x => new SelectListItem { Text = x.name + " " + x.lastname, Value = x.operator_id.ToString() }).ToList();
             ViewBag.vbOperators = lOperators;
         }
     }

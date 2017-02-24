@@ -9,80 +9,80 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.case_id)
-
-    <div class="form-group margin-5-0">
-        @Html.LabelFor(model => model.case_status_id, htmlAttributes: new { @class = "control-label" })
-        @(Html.Kendo().ComboBoxFor(model => model.case_status_id)
+    <div class="container">
+        <div class="form-group margin-5-0 col-md-6 border-box">
+            @Html.LabelFor(model => model.case_status_id, htmlAttributes: new { @class = "control-label" })
+            @(Html.Kendo().ComboBoxFor(model => model.case_status_id)
                                 .DataTextField("Text")
                                 .DataValueField("Value")
                                 .Placeholder("-- Select --")
                                 .Filter(FilterType.StartsWith)
                                 .BindTo(ViewBag.vbStatuses)
                                 .HtmlAttributes(new { @class = "input-item" })
-        )
-        @Html.ValidationMessageFor(model => model.case_status_id)
-    </div>
-    <div class="form-group margin-5-0">
-        @Html.LabelFor(model => model.case_type_id, htmlAttributes: new { @class = "control-label" })
-        @(Html.Kendo().ComboBoxFor(model => model.case_type_id)
+            )
+            @Html.ValidationMessageFor(model => model.case_status_id)
+        </div>
+        <div class="form-group margin-5-0  col-md-6 border-box">
+            @Html.LabelFor(model => model.case_type_id, htmlAttributes: new { @class = "control-label" })
+            @(Html.Kendo().ComboBoxFor(model => model.case_type_id)
                                 .DataTextField("Text")
                                 .DataValueField("Value")
                                 .Placeholder("-- Select --")
                                 .Filter(FilterType.StartsWith)
                                 .BindTo(ViewBag.vbTypes)
                                 .HtmlAttributes(new { @class = "input-item" })
-        )
-        @Html.ValidationMessageFor(model => model.case_type_id)
-    </div>
-    <div class="form-group margin-5-0">
-        @Html.LabelFor(model => model.case_urgency_id, htmlAttributes: new { @class = "control-label" })
-        @(Html.Kendo().ComboBoxFor(model => model.case_urgency_id)
+            )
+            @Html.ValidationMessageFor(model => model.case_type_id)
+        </div>
+        <div class="form-group margin-5-0  col-md-6 border-box">
+            @Html.LabelFor(model => model.case_urgency_id, htmlAttributes: new { @class = "control-label" })
+            @(Html.Kendo().ComboBoxFor(model => model.case_urgency_id)
                                 .DataTextField("Text")
                                 .DataValueField("Value")
                                 .Placeholder("-- Select --")
                                 .Filter(FilterType.StartsWith)
                                 .BindTo(ViewBag.vbUrgencises)
                                 .HtmlAttributes(new { @class = "input-item" })
-        )
-        @Html.ValidationMessageFor(model => model.case_urgency_id)
-    </div>
-    <div class="form-group margin-5-0">
-        @Html.LabelFor(model => model.case_department_id, htmlAttributes: new { @class = "control-label" })
-        @(Html.Kendo().ComboBoxFor(model => model.case_department_id)
+            )
+            @Html.ValidationMessageFor(model => model.case_urgency_id)
+        </div>
+        <div class="form-group margin-5-0  col-md-6 border-box">
+            @Html.LabelFor(model => model.case_department_id, htmlAttributes: new { @class = "control-label" })
+            @(Html.Kendo().ComboBoxFor(model => model.case_department_id)
                                 .DataTextField("Text")
                                 .DataValueField("Value")
                                 .Placeholder("-- Select --")
                                 .Filter(FilterType.StartsWith)
                                 .BindTo(ViewBag.vbDepartments)
                                 .HtmlAttributes(new { @class = "input-item" })
-        )
-        @Html.ValidationMessageFor(model => model.case_department_id)
+            )
+            @Html.ValidationMessageFor(model => model.case_department_id)
+        </div>
+        @*<div class="form-group margin-5-0">
+            @Html.LabelFor(model => model.start_date, new { @class = "control-label" })
+            @Html.Kendo().DatePickerFor(model => model.start_date)
+            @Html.ValidationMessageFor(model => model.start_date)
+        </div>
+        <div class="form-group margin-5-0">
+            @Html.LabelFor(model => model.end_date, new { @class = "control-label" })
+            @Html.Kendo().DatePickerFor(model => model.end_date)
+            @Html.ValidationMessageFor(model => model.end_date)
+        </div>
+        <div class="form-group margin-5-0">
+            @Html.LabelFor(model => model.creator_operator_name, new { @class = "control-label" })
+            @Html.Kendo().TextBoxFor(model => model.creator_operator_name)
+            @Html.ValidationMessageFor(model => model.creator_operator_name)
+        </div>
+        <div class="form-group margin-5-0">
+            @Html.LabelFor(model => model.completing_operator_name, new { @class = "control-label" })
+            @Html.Kendo().TextBoxFor(model => model.completing_operator_name)
+            @Html.ValidationMessageFor(model => model.completing_operator_name)
+        </div>*@
     </div>
-    <div class="form-group margin-5-0">
-        @Html.LabelFor(model => model.start_date, new { @class = "control-label" })
-        @Html.Kendo().DatePickerFor(model => model.start_date)
-        @Html.ValidationMessageFor(model => model.start_date)
-    </div>
-    <div class="form-group margin-5-0">
-        @Html.LabelFor(model => model.end_date, new { @class = "control-label" })
-        @Html.Kendo().DatePickerFor(model => model.end_date)
-        @Html.ValidationMessageFor(model => model.end_date)
-    </div>
-    <div class="form-group margin-5-0">
-        @Html.LabelFor(model => model.creator_operator_name, new { @class = "control-label" })
-        @Html.Kendo().TextBoxFor(model => model.creator_operator_name)
-        @Html.ValidationMessageFor(model => model.creator_operator_name)
-    </div>
-    <div class="form-group margin-5-0">
-        @Html.LabelFor(model => model.completing_operator_name, new { @class = "control-label" })
-        @Html.Kendo().TextBoxFor(model => model.completing_operator_name)
-        @Html.ValidationMessageFor(model => model.completing_operator_name)
-    </div>
-
     <div class="col-sm-12 border-box" style="margin-top:15px;">
         <ul class="nav nav-tabs">
             <li class="active">
-                <a data-toggle="tab" href="#tabFor_Actions">Drugs</a>
+                <a data-toggle="tab" href="#tabFor_Actions">Actions</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -93,22 +93,22 @@
                               {
                                   columns.Bound(model => model.action_id).Hidden();
                                   columns.Bound(model => model.case_id).Hidden();
-                                  columns.Bound(model => model.date);
-                                  columns.ForeignKey(model => model.action_category_id, (List<SelectListItem>)ViewBag.vbActionCategories, "Value", "Text").EditorTemplateName("action_categories");
-                                  columns.ForeignKey(model => model.action_type_id, (List<SelectListItem>)ViewBag.vbActionTypes, "Value", "Text").EditorTemplateName("action_types");
-                                  columns.ForeignKey(model => model.action_status_id, (List<SelectListItem>)ViewBag.vbActionStatuses, "Value", "Text").EditorTemplateName("action_statuses");
-                                  columns.ForeignKey(model => model.resident_id, (List<SelectListItem>)ViewBag.vbResidents, "Value", "Text").EditorTemplateName("residents");
-                                  columns.ForeignKey(model => model.operator_id, (List<SelectListItem>)ViewBag.vbOperators, "Value", "Text").EditorTemplateName("operators");
-                                  columns.Bound(model => model.file);
+                                  columns.Bound(model => model.date).Width(100);
+                                  columns.ForeignKey(model => model.action_category_id, (List<SelectListItem>)ViewBag.vbActionCategories, "Value", "Text").EditorTemplateName("action_categories").Width(130);
+                                  columns.ForeignKey(model => model.action_type_id, (List<SelectListItem>)ViewBag.vbActionTypes, "Value", "Text").EditorTemplateName("action_types").Width(170);
+                                  columns.ForeignKey(model => model.action_status_id, (List<SelectListItem>)ViewBag.vbActionStatuses, "Value", "Text").EditorTemplateName("action_statuses").Width(130);
+                                  columns.ForeignKey(model => model.resident_id, (List<SelectListItem>)ViewBag.vbResidents, "Value", "Text").EditorTemplateName("residents").Width(200);
+                                  columns.ForeignKey(model => model.operator_id, (List<SelectListItem>)ViewBag.vbOperators, "Value", "Text").EditorTemplateName("operators").Width(200);
+                                  columns.Bound(model => model.file).Width(70);
                                   columns.Bound(model => model.description);
                                   columns.Command(commands =>
                                   {
-                                      commands.Destroy().Text("Remove");
-                                  }).Title("Commands").Width(110);
+                                      commands.Destroy().Text(" ");
+                                  }).Title(" ").Width(50);
                               })
                               .ToolBar(toolbar =>
                               {
-                                  toolbar.Create().Text("New");
+                                  toolbar.Create().Text("New Action");
                               })
                               .Editable(editable => editable.Mode(GridEditMode.InCell))
                                   .DataSource(dataSource => dataSource
@@ -146,6 +146,12 @@
 </div>
 
 <script>
+    var containerHeight = $(".container").height();
+    var gridHeight =
+        $(window).height() - containerHeight - 200;
+    $(".k-grid").height(gridHeight);
+
+
 
     $(document).ready(function () {
 

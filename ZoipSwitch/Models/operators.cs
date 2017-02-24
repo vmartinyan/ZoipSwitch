@@ -26,6 +26,18 @@ namespace ZoipSwitch.Models
         set { extension = value; }
         }
 
+        [NotMapped]
+        [Display(Name = "Operator")]
+        public string operatoe_name
+        {
+            get
+            {
+                string operator_nm = name + " " + lastname;
+                return operator_nm;
+            }
+            set { operatoe_name = value; }
+        }
+
         [Display(Name = "Name")]
         public string name { get; set; }
 

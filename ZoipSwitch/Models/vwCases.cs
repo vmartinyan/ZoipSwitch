@@ -11,10 +11,11 @@ namespace ZoipSwitch.Models
     public class vwCases
     {
         [Key]
+        [Display(Name = "NN")]
         public int case_id { get; set; }
 
-        [Display(Name = "Action")]
-        public int action_id { get; set; }
+        //[Display(Name = "Action")]
+        //public int action_id { get; set; }
 
         [Display(Name = "Status")]
         public int case_status_id { get; set; }

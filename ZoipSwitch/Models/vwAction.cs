@@ -60,5 +60,29 @@ namespace ZoipSwitch.Models
 
         [Display(Name = "Description")]
         public string description { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Operator")]
+        public string operatoe_name
+        {
+            get
+            {
+                string operator_nm = name + " " + lastname;
+                return operator_nm;
+            }
+            set { operatoe_name = value; }
+        }
+
+        [NotMapped]
+        [Display(Name = "Resident")]
+        public string resident
+        {
+            get
+            {
+                string res = resident_name + " " + resident_lastname;
+                return res;
+            }
+            set { resident = value; }
+        }
     }
 }
