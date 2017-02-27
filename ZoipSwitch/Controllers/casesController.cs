@@ -109,6 +109,18 @@ namespace ZoipSwitch.Controllers
                                     db.Actions.Remove(rAction);
                                 }
                             }
+                            //foreach (var itm in cases.Actions)
+                            //{
+                            //    if (itm.action_status_id == 3)
+                            //    {
+                            //        mCases.case_status_id = 3;
+                            //    }
+                            //    else
+                            //    {
+                            //        cases.case_status_id = 2;
+                            //    }
+                            //}
+                            //db.Entry(mCases).State = EntityState.Modified;
                         }
                     }
                     db.SaveChanges();
@@ -139,6 +151,28 @@ namespace ZoipSwitch.Controllers
                 }
                 else
                 {
+                    foreach (var itm in item.Actions)
+                    {
+                        if (itm.action_status_id == 3)
+                        {
+                            item.case_status_id = 3;
+                            break;
+                        }
+                        else
+                        {
+                            item.case_status_id = 2;
+                        }
+                    }
+
+                    //var itmOpen = item.Actions.Where(p => p.action_status_id == 1);
+                    //var itmCurrent = item.Actions.Where(p => p.action_status_id == 2);
+                    //var itmClose = item.Actions.Where(p => p.action_status_id == 3);
+                    //if (itmClose != null)
+                    //{
+                    //    item.case_status_id = 3;
+                    //}
+
+                    //actions[] itm = item.Actions.ToArray();
                     return View("Template", item);
                 }
             }

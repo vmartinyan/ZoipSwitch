@@ -10,19 +10,39 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.case_id)
     <div class="container">
-        <div class="form-group margin-5-0 col-md-6 border-box">
-            @Html.LabelFor(model => model.case_status_id, htmlAttributes: new { @class = "control-label" })
-            @(Html.Kendo().ComboBoxFor(model => model.case_status_id)
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                .Placeholder("-- Select --")
-                                .Filter(FilterType.StartsWith)
-                                .BindTo(ViewBag.vbStatuses)
-                                .HtmlAttributes(new { @class = "input-item" })
-            )
-            @Html.ValidationMessageFor(model => model.case_status_id)
-        </div>
-        <div class="form-group margin-5-0  col-md-6 border-box">
+        @*<div class="form-group margin-5-0 col-md-6 border-box">
+                @Html.LabelFor(model => model.case_status_id, htmlAttributes: new { @class = "control-label" })
+                @(Html.Kendo().ComboBoxFor(model => model.case_status_id)
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .Placeholder("-- Select --")
+                                    .Filter(FilterType.StartsWith)
+                                    .BindTo(ViewBag.vbStatuses)
+                                    .HtmlAttributes(new { @class = "input-item" })
+                )
+                @Html.ValidationMessageFor(model => model.case_status_id)
+            </div>*@
+        @if (@Model.case_status_id != 0)
+        {
+            <div class="form-group margin-5-0 col-sm-12 border-box">
+                @Html.LabelFor(model => model.case_status_id, htmlAttributes: new { @class = "control-label" }):
+                @Html.DisplayFor(model => model.case_status_id)
+                <br />
+                @Html.LabelFor(model => model.creator_operator_name, htmlAttributes: new { @class = "control-label" }):
+                @Html.DisplayFor(model => model.creator_operator_name)
+                <br />
+                @Html.LabelFor(model => model.completing_operator_name, htmlAttributes: new { @class = "control-label" }):
+                @Html.DisplayFor(model => model.completing_operator_name)
+                <br />
+                @Html.LabelFor(model => model.start_date, htmlAttributes: new { @class = "control-label" }):
+                @Html.DisplayFor(model => model.start_date)
+                <br />
+                @Html.LabelFor(model => model.end_date, htmlAttributes: new { @class = "control-label" }):
+                @Html.DisplayFor(model => model.end_date)
+            </div>
+        }
+        
+        <div class="form-group margin-5-0 col-md-3 col-sm-6 border-box">
             @Html.LabelFor(model => model.case_type_id, htmlAttributes: new { @class = "control-label" })
             @(Html.Kendo().ComboBoxFor(model => model.case_type_id)
                                 .DataTextField("Text")
@@ -34,7 +54,7 @@
             )
             @Html.ValidationMessageFor(model => model.case_type_id)
         </div>
-        <div class="form-group margin-5-0  col-md-6 border-box">
+        <div class="form-group margin-5-0 col-md-3 col-sm-6 border-box">
             @Html.LabelFor(model => model.case_urgency_id, htmlAttributes: new { @class = "control-label" })
             @(Html.Kendo().ComboBoxFor(model => model.case_urgency_id)
                                 .DataTextField("Text")
@@ -46,7 +66,8 @@
             )
             @Html.ValidationMessageFor(model => model.case_urgency_id)
         </div>
-        <div class="form-group margin-5-0  col-md-6 border-box">
+        @*<div class="clear"></div>*@
+        <div class="form-group margin-5-0 col-md-6 col-sm-12 border-box">
             @Html.LabelFor(model => model.case_department_id, htmlAttributes: new { @class = "control-label" })
             @(Html.Kendo().ComboBoxFor(model => model.case_department_id)
                                 .DataTextField("Text")
@@ -58,26 +79,27 @@
             )
             @Html.ValidationMessageFor(model => model.case_department_id)
         </div>
+        <div class="clear"></div>
         @*<div class="form-group margin-5-0">
-            @Html.LabelFor(model => model.start_date, new { @class = "control-label" })
-            @Html.Kendo().DatePickerFor(model => model.start_date)
-            @Html.ValidationMessageFor(model => model.start_date)
-        </div>
-        <div class="form-group margin-5-0">
-            @Html.LabelFor(model => model.end_date, new { @class = "control-label" })
-            @Html.Kendo().DatePickerFor(model => model.end_date)
-            @Html.ValidationMessageFor(model => model.end_date)
-        </div>
-        <div class="form-group margin-5-0">
-            @Html.LabelFor(model => model.creator_operator_name, new { @class = "control-label" })
-            @Html.Kendo().TextBoxFor(model => model.creator_operator_name)
-            @Html.ValidationMessageFor(model => model.creator_operator_name)
-        </div>
-        <div class="form-group margin-5-0">
-            @Html.LabelFor(model => model.completing_operator_name, new { @class = "control-label" })
-            @Html.Kendo().TextBoxFor(model => model.completing_operator_name)
-            @Html.ValidationMessageFor(model => model.completing_operator_name)
-        </div>*@
+                @Html.LabelFor(model => model.start_date, new { @class = "control-label" })
+                @Html.Kendo().DatePickerFor(model => model.start_date)
+                @Html.ValidationMessageFor(model => model.start_date)
+            </div>
+            <div class="form-group margin-5-0">
+                @Html.LabelFor(model => model.end_date, new { @class = "control-label" })
+                @Html.Kendo().DatePickerFor(model => model.end_date)
+                @Html.ValidationMessageFor(model => model.end_date)
+            </div>
+            <div class="form-group margin-5-0">
+                @Html.LabelFor(model => model.creator_operator_name, new { @class = "control-label" })
+                @Html.Kendo().TextBoxFor(model => model.creator_operator_name)
+                @Html.ValidationMessageFor(model => model.creator_operator_name)
+            </div>
+            <div class="form-group margin-5-0">
+                @Html.LabelFor(model => model.completing_operator_name, new { @class = "control-label" })
+                @Html.Kendo().TextBoxFor(model => model.completing_operator_name)
+                @Html.ValidationMessageFor(model => model.completing_operator_name)
+            </div>*@
     </div>
     <div class="col-sm-12 border-box" style="margin-top:15px;">
         <ul class="nav nav-tabs">
@@ -172,7 +194,7 @@
 
                 var item = new Object();
                 item.case_id = '@Model.case_id';
-                item.case_status_id = $("#case_status_id").val();
+                item.case_status_id = '@Model.case_status_id';
                 item.case_type_id = $("#case_type_id").val();
                 item.case_urgency_id = $("#case_urgency_id").val();
                 item.case_department_id = $("#case_department_id").val();
@@ -184,39 +206,10 @@
 
                 var actionGrid = $("#actions").data("kendoGrid"), parameterMap = actionGrid.dataSource.transport.parameterMap;
                 var currentActionData = actionGrid.dataSource.data();
-                    var rAction = [];
-                    for (var i = 0; i < currentActionData.length; i++) {
-                        var itm = new Object();
-                        if (currentActionData[i].isNew()) {
-                            itm.action_id = currentActionData[i].action_id;
-                            itm.case_id = currentActionData[i].case_id;
-                            itm.operator_id = currentActionData[i].operator_id;
-                            itm.action_category_id = currentActionData[i].action_category_id;
-                            itm.action_type_id = currentActionData[i].action_type_id;
-                            itm.action_status_id = currentActionData[i].action_status_id;
-                            itm.resident_id = currentActionData[i].resident_id;
-                            itm.description = currentActionData[i].description;
-                            itm.file = currentActionData[i].file;
-                            itm.date = currentActionData[i].date;
-                            itm.RecordStatus = String(1);
-                            rAction.push(itm);
-                        } else if (currentActionData[i].dirty) {
-                            itm.action_id = currentActionData[i].action_id;
-                            itm.case_id = currentActionData[i].case_id;
-                            itm.operator_id = currentActionData[i].operator_id;
-                            itm.action_category_id = currentActionData[i].action_category_id;
-                            itm.action_type_id = currentActionData[i].action_type_id;
-                            itm.action_status_id = currentActionData[i].action_status_id;
-                            itm.resident_id = currentActionData[i].resident_id;
-                            itm.description = currentActionData[i].description;
-                            itm.file = currentActionData[i].file;
-                            itm.date = currentActionData[i].date;
-                            itm.RecordStatus = String(2);
-                            rAction.push(itm);
-                        }
-                    }
-                    for (var i = 0; i < actionGrid.dataSource._destroyed.length; i++) {
-                        var itm = new Object();
+                var rAction = [];
+                for (var i = 0; i < currentActionData.length; i++) {
+                    var itm = new Object();
+                    if (currentActionData[i].isNew()) {
                         itm.action_id = currentActionData[i].action_id;
                         itm.case_id = currentActionData[i].case_id;
                         itm.operator_id = currentActionData[i].operator_id;
@@ -227,43 +220,72 @@
                         itm.description = currentActionData[i].description;
                         itm.file = currentActionData[i].file;
                         itm.date = currentActionData[i].date;
-                        itm.RecordStatus = String(3);
+                        itm.RecordStatus = String(1);
+                        rAction.push(itm);
+                    } else if (currentActionData[i].dirty) {
+                        itm.action_id = currentActionData[i].action_id;
+                        itm.case_id = currentActionData[i].case_id;
+                        itm.operator_id = currentActionData[i].operator_id;
+                        itm.action_category_id = currentActionData[i].action_category_id;
+                        itm.action_type_id = currentActionData[i].action_type_id;
+                        itm.action_status_id = currentActionData[i].action_status_id;
+                        itm.resident_id = currentActionData[i].resident_id;
+                        itm.description = currentActionData[i].description;
+                        itm.file = currentActionData[i].file;
+                        itm.date = currentActionData[i].date;
+                        itm.RecordStatus = String(2);
                         rAction.push(itm);
                     }
-                    item.Actions = rAction;
+                }
+                for (var i = 0; i < actionGrid.dataSource._destroyed.length; i++) {
+                    var itm = new Object();
+                    itm.action_id = currentActionData[i].action_id;
+                    itm.case_id = currentActionData[i].case_id;
+                    itm.operator_id = currentActionData[i].operator_id;
+                    itm.action_category_id = currentActionData[i].action_category_id;
+                    itm.action_type_id = currentActionData[i].action_type_id;
+                    itm.action_status_id = currentActionData[i].action_status_id;
+                    itm.resident_id = currentActionData[i].resident_id;
+                    itm.description = currentActionData[i].description;
+                    itm.file = currentActionData[i].file;
+                    itm.date = currentActionData[i].date;
+                    itm.RecordStatus = String(3);
+                    rAction.push(itm);
+                }
+                item.Actions = rAction;
 
-                    var rt = false;
-                    var dt;
-                    var q = $.ajax({
-                        url: '@Url.Action("Save", "cases")',
-                        dataType: "json",
-                        type: "POST",
-                        data: JSON.stringify({ cases: item }),
-                        contentType: "application/json; charset=utf-8",
-                        async: false,
-                        success: function (data) {
-                            dt = data;
-                            rt = true;
-                        },
-                        error: function (xhr) {
-                            dt = xhr;
-                            rt = false;
-                        }
-                    });
-                    if (rt == true) {
-                        if (dt.statuscode == 1) {
-                            $(this).closest(".k-window-content").data("kendoWindow").close();
-                            return false;
-                        }
-                        else {
-                            $("#errormssg").html(dt.message);
-                            return false;
-                        }
+                var rt = false;
+                var dt;
+                var q = $.ajax({
+                    url: '@Url.Action("Save", "cases")',
+                    dataType: "json",
+                    type: "POST",
+                    data: JSON.stringify({ cases: item }),
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    success: function (data) {
+                        dt = data;
+                        rt = true;
+                    },
+                    error: function (xhr) {
+                        dt = xhr;
+                        rt = false;
+                    }
+                });
+                if (rt == true) {
+                    if (dt.statuscode == 1) {
+                        $(this).closest(".k-window-content").data("kendoWindow").close();
+                        return false;
                     }
                     else {
-                        //system error ocured. The popup will be closed. The view will be redirected to error page.
-                        $(this).closest(".k-window-content").data("kendoWindow").close();
+                        $("#errormssg").html(dt.message);
+                        return false;
                     }
+                }
+                else {
+                    //system error ocured. The popup will be closed. The view will be redirected to error page.
+                    $(this).closest(".k-window-content").data("kendoWindow").close();
+                }
 
             });
     });
