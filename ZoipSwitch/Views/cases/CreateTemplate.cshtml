@@ -22,26 +22,7 @@
                 )
                 @Html.ValidationMessageFor(model => model.case_status_id)
             </div>*@
-        @if (@Model.case_status_id != 0)
-        {
-            <div class="form-group margin-5-0 col-sm-12 border-box">
-                @Html.LabelFor(model => model.case_status_id, htmlAttributes: new { @class = "control-label" }):
-                @Html.DisplayFor(model => model.case_status_id)
-                <br />
-                @Html.LabelFor(model => model.creator_operator_name, htmlAttributes: new { @class = "control-label" }):
-                @Html.DisplayFor(model => model.creator_operator_name)
-                <br />
-                @Html.LabelFor(model => model.completing_operator_name, htmlAttributes: new { @class = "control-label" }):
-                @Html.DisplayFor(model => model.completing_operator_name)
-                <br />
-                @Html.LabelFor(model => model.start_date, htmlAttributes: new { @class = "control-label" }):
-                @Html.DisplayFor(model => model.start_date)
-                <br />
-                @Html.LabelFor(model => model.end_date, htmlAttributes: new { @class = "control-label" }):
-                @Html.DisplayFor(model => model.end_date)
-            </div>
-        }
-        
+
         <div class="form-group margin-5-0 col-md-3 col-sm-6 border-box">
             @Html.LabelFor(model => model.case_type_id, htmlAttributes: new { @class = "control-label" })
             @(Html.Kendo().ComboBoxFor(model => model.case_type_id)
@@ -115,7 +96,7 @@
                               {
                                   columns.Bound(model => model.action_id).Hidden();
                                   columns.Bound(model => model.case_id).Hidden();
-                                  columns.Bound(model => model.date).Width(100);
+                                  columns.Bound(model => model.date).Width(190);
                                   columns.ForeignKey(model => model.action_category_id, (List<SelectListItem>)ViewBag.vbActionCategories, "Value", "Text").EditorTemplateName("action_categories").Width(130);
                                   columns.ForeignKey(model => model.action_type_id, (List<SelectListItem>)ViewBag.vbActionTypes, "Value", "Text").EditorTemplateName("action_types").Width(170);
                                   columns.ForeignKey(model => model.action_status_id, (List<SelectListItem>)ViewBag.vbActionStatuses, "Value", "Text").EditorTemplateName("action_statuses").Width(130);
@@ -126,7 +107,7 @@
                                   columns.Command(commands =>
                                   {
                                       commands.Destroy().Text(" ");
-                                  }).Title(" ").Width(50);
+                                  }).Title(" ").Width(55);
                               })
                               .ToolBar(toolbar =>
                               {
@@ -155,6 +136,7 @@
     </div>
 
     <div class="form-group margin-5-0 align-right">
+        @*<p id="errormssg"></p>*@
         <button class="btn btn-alt btn-hover btn-default" id="dtSave">
             <span>Save</span>
             <i class="glyph-icon icon-floppy-o"></i>
@@ -239,16 +221,16 @@
                 }
                 for (var i = 0; i < actionGrid.dataSource._destroyed.length; i++) {
                     var itm = new Object();
-                    itm.action_id = currentActionData[i].action_id;
-                    itm.case_id = currentActionData[i].case_id;
-                    itm.operator_id = currentActionData[i].operator_id;
-                    itm.action_category_id = currentActionData[i].action_category_id;
-                    itm.action_type_id = currentActionData[i].action_type_id;
-                    itm.action_status_id = currentActionData[i].action_status_id;
-                    itm.resident_id = currentActionData[i].resident_id;
-                    itm.description = currentActionData[i].description;
-                    itm.file = currentActionData[i].file;
-                    itm.date = currentActionData[i].date;
+                    itm.action_id = actionGrid.dataSource._destroyed[i].action_id;
+                    itm.case_id = actionGrid.dataSource._destroyed[i].case_id;
+                    itm.operator_id = actionGrid.dataSource._destroyed[i].operator_id;
+                    itm.action_category_id = actionGrid.dataSource._destroyed[i].action_category_id;
+                    itm.action_type_id = actionGrid.dataSource._destroyed[i].action_type_id;
+                    itm.action_status_id = actionGrid.dataSource._destroyed[i].action_status_id;
+                    itm.resident_id = actionGrid.dataSource._destroyed[i].resident_id;
+                    itm.description = actionGrid.dataSource._destroyed[i].description;
+                    itm.file = actionGrid.dataSource._destroyed[i].file;
+                    itm.date = actionGrid.dataSource._destroyed[i].date;
                     itm.RecordStatus = String(3);
                     rAction.push(itm);
                 }
@@ -279,6 +261,7 @@
                     }
                     else {
                         $("#errormssg").html(dt.message);
+                        alert(dt.message);
                         return false;
                     }
                 }

@@ -51,8 +51,8 @@ namespace ZoipSwitch.Models
         public string resident_lastname { get; set; }
 
         [Display(Name = "Date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime date { get; set; }
 
         [Display(Name = "File")]

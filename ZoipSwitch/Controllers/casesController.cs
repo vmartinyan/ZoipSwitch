@@ -36,7 +36,8 @@ namespace ZoipSwitch.Controllers
         {
             OrganizeViewBugs(db);
             var item = new cases();
-            return View("Template", item);
+            item.case_status_id = 2;
+            return View("CreateTemplate", item);
         }
 
 
@@ -68,6 +69,30 @@ namespace ZoipSwitch.Controllers
                                     db.Actions.Add(item);
                                 }
                             }
+                            foreach (var itm in cases.Actions)
+                            {
+                                if (itm.action_status_id == 3)
+                                {
+                                    cases.case_status_id = 3;
+                                    operators oper = db.Operators.Find(itm.operator_id);
+                                    cases.creator_operator_name = oper.operatoe_name;
+                                    cases.completing_operator_name = oper.operatoe_name;
+                                    cases.start_date = itm.date;
+                                    cases.end_date = itm.date;
+                                }
+                                else
+                                {
+                                    cases.case_status_id = 2;
+                                    operators oper = db.Operators.Find(itm.operator_id);
+                                    cases.creator_operator_name = oper.operatoe_name;
+                                    cases.start_date = itm.date;
+                                    cases.end_date = null;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return Json(new { message = "You must enter the action" }, JsonRequestBehavior.AllowGet);
                         }
 
                     }
@@ -76,17 +101,17 @@ namespace ZoipSwitch.Controllers
                         //Վերջում խմբագրում ենք 2-րդ մակարդակի աղյուսակի գրառումը
                         cases mCases = db.Cases.Find(cases.case_id);
 
-                        mCases.case_status_id = cases.case_status_id;
+                        //mCases.case_status_id = cases.case_status_id;
                         mCases.case_type_id = cases.case_type_id;
                         mCases.case_urgency_id = cases.case_urgency_id;
                         mCases.case_department_id = cases.case_department_id;
-                        mCases.start_date = cases.start_date;
-                        mCases.end_date = cases.end_date;
-                        mCases.creator_operator_name = cases.creator_operator_name;
-                        mCases.completing_operator_name = cases.completing_operator_name;
+                       // mCases.start_date = cases.start_date;
+                        //mCases.end_date = cases.end_date;
+                        //mCases.creator_operator_name = cases.creator_operator_name;
+                       // mCases.completing_operator_name = cases.completing_operator_name;
                                             
 
-                        db.Entry(mCases).State = EntityState.Modified;
+                       db.Entry(mCases).State = EntityState.Modified;
 
                         //ենթաաղյուսակների լրացում
                         if (cases.Actions != null)
@@ -109,19 +134,32 @@ namespace ZoipSwitch.Controllers
                                     db.Actions.Remove(rAction);
                                 }
                             }
-                            //foreach (var itm in cases.Actions)
-                            //{
-                            //    if (itm.action_status_id == 3)
-                            //    {
-                            //        mCases.case_status_id = 3;
-                            //    }
-                            //    else
-                            //    {
-                            //        cases.case_status_id = 2;
-                            //    }
-                            //}
-                            //db.Entry(mCases).State = EntityState.Modified;
+
                         }
+                        else
+                        {
+                            //return Json(new { message = "If you have not any changes in the actions, please close the window" }, JsonRequestBehavior.AllowGet);
+                            return Json(new { statuscode = 1, message = "" }, JsonRequestBehavior.AllowGet);
+                        }
+                        foreach (var itm in cases.Actions)
+                        {
+                            if (itm.action_status_id == 3)
+                            {
+                                mCases.case_status_id = 3;
+                                operators oper = db.Operators.Find(itm.operator_id);
+                                mCases.completing_operator_name = oper.operatoe_name;
+                                mCases.end_date = itm.date;
+                            }
+                            else
+                            {
+                                mCases.case_status_id = 2;
+                                operators oper = db.Operators.Find(itm.operator_id);
+                                mCases.completing_operator_name = " ";
+                                mCases.end_date = null;
+                            }
+                        }
+                        db.Entry(mCases).State = EntityState.Modified;
+                        
                     }
                     db.SaveChanges();
                     return Json(new { statuscode = 1, message = "" }, JsonRequestBehavior.AllowGet);
@@ -130,7 +168,7 @@ namespace ZoipSwitch.Controllers
             catch (Exception ex)
             {
                 //return View("Error", new HandleErrorInfo(ex, "cases", "Save"));
-                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+                return Json(new { message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -151,17 +189,20 @@ namespace ZoipSwitch.Controllers
                 }
                 else
                 {
-                    foreach (var itm in item.Actions)
+                    if (item.Actions != null) { 
+                        foreach (var itm in item.Actions)
                     {
                         if (itm.action_status_id == 3)
                         {
                             item.case_status_id = 3;
+                                
                             break;
                         }
                         else
                         {
                             item.case_status_id = 2;
                         }
+                    }
                     }
 
                     //var itmOpen = item.Actions.Where(p => p.action_status_id == 1);
@@ -173,7 +214,7 @@ namespace ZoipSwitch.Controllers
                     //}
 
                     //actions[] itm = item.Actions.ToArray();
-                    return View("Template", item);
+                    return View("UpdateTemplate", item);
                 }
             }
         }
@@ -196,6 +237,14 @@ namespace ZoipSwitch.Controllers
             {
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        public ActionResult Excel_Export_Save(string contentType, string base64, string fileName)
+        {
+            var fileContents = Convert.FromBase64String(base64);
+
+            return File(fileContents, contentType, fileName);
         }
 
         private void OrganizeViewBugs(Context db)

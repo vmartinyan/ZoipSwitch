@@ -11,6 +11,9 @@
     .Items(items =>
     {
         items.Add().Template("<button class=\"btn btn-alt btn-hover btn-success toolBtn\" onclick=\"return Create(); \"><span>Create</span><i class=\"glyph-icon icon-plus\"></i></button>");
+        items.Add().Template("<button class=\"btn btn-alt btn-hover btn-info toolBtn\" onclick=\"return Excel(); \"><span>Export to Excel</span><i class=\"glyph-icon icon-file-excel-o\"></i></button>");
+
+        //items.Add().Template("<a class=\"k-button k-button-icontext k-grid-excel\" href=\"#\"><span class=\"k-icon k-i-excel\"></span>Export to Excel</a>");
         //items.Add().Template("<button class=\"btn btn-alt btn-hover btn-info toolBtn\" onclick=\"return Details(); \"><span>Details</span><i class=\"glyph-icon icon-list-ul\"></i></button>");
     })
     )
@@ -88,6 +91,12 @@
                         .ButtonCount(5))
                         .Filterable()
                         .Scrollable()
+                        .Groupable()
+                        //.Mobile(MobileMode.Tablet)
+                        .Excel(excel => excel
+                            .FileName("Cases.xlsx")
+                            .Filterable(true)
+                            .ProxyURL(Url.Action("Excel_Export_Save", "cases")))
                         .ClientDetailTemplateId("template")
                         .Resizable(resize => resize.Columns(true))
                         .Reorderable(reorder => reorder.Columns(true))
@@ -98,6 +107,7 @@
                         .Read(read => read.Action("Read", "cases").Data("getParameter"))
                         .PageSize(15)
                         .Model(model => model.Id(p => p.case_id))
+                        
 )
 )
 @(Html.Kendo().Window().Name("crtWindow")
@@ -152,7 +162,7 @@
         var row = $(e.target).closest("tr");
         var grid = $("#cases").data("kendoGrid");
         var dataItem = grid.dataItem(row);
-        var r = confirm("Are you sure to delete the record?");
+        var r = confirm("Are you sure you want to delete this record?");
         if (r == false) {
             return false;
         }
@@ -184,6 +194,10 @@
         }
         return false;
     }
+
+    function Excel() {
+        $("#cases").getKendoGrid().saveAsExcel();
+       }
 
     function Details() {
         var window = $("#window").data("kendoWindow");
@@ -227,7 +241,7 @@
               .Columns(columns =>
               {
                   columns.Bound(product => product.action_id).Hidden();
-                  columns.Bound(product => product.date).Width(100);
+                  columns.Bound(product => product.date).Width(150);
                   columns.Bound(product => product.action_category_name).Width(130);
                   columns.Bound(product => product.action_type_name).Width(150);
                   columns.Bound(product => product.action_status_name).Width(130);

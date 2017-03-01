@@ -34,8 +34,8 @@ namespace ZoipSwitch.Models
         public int resident_id { get; set; }
 
         [Display(Name = "Date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime date { get; set; }
 
         [Display(Name = "File")]

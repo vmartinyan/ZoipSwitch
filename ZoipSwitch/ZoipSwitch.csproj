@@ -2732,12 +2732,13 @@
     <Content Include="Views\operators\Index.cshtml" />
     <Content Include="Views\operators\Template.cshtml" />
     <Content Include="Views\cases\Index.cshtml" />
-    <Content Include="Views\cases\Template.cshtml" />
+    <Content Include="Views\cases\UpdateTemplate.cshtml" />
     <Content Include="Views\cases\EditorTemplates\action_categories.cshtml" />
     <Content Include="Views\cases\EditorTemplates\action_types.cshtml" />
     <Content Include="Views\cases\EditorTemplates\action_statuses.cshtml" />
     <Content Include="Views\cases\EditorTemplates\residents.cshtml" />
     <Content Include="Views\cases\EditorTemplates\operators.cshtml" />
+    <Content Include="Views\cases\CreateTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
