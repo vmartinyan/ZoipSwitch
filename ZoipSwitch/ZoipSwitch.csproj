@@ -2739,6 +2739,7 @@
     <Content Include="Views\cases\EditorTemplates\residents.cshtml" />
     <Content Include="Views\cases\EditorTemplates\operators.cshtml" />
     <Content Include="Views\cases\CreateTemplate.cshtml" />
+    <Content Include="Views\cases\EditorTemplates\action_date.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

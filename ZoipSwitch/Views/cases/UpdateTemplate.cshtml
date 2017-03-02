@@ -92,7 +92,7 @@
                               {
                                   columns.Bound(model => model.action_id).Hidden();
                                   columns.Bound(model => model.case_id).Hidden();
-                                  columns.Bound(model => model.date).Width(190);
+                                  columns.Bound(model => model.date).EditorTemplateName("action_date").Width(190);
                                   columns.ForeignKey(model => model.action_category_id, (List<SelectListItem>)ViewBag.vbActionCategories, "Value", "Text").EditorTemplateName("action_categories").Width(130);
                                   columns.ForeignKey(model => model.action_type_id, (List<SelectListItem>)ViewBag.vbActionTypes, "Value", "Text").EditorTemplateName("action_types").Width(170);
                                   columns.ForeignKey(model => model.action_status_id, (List<SelectListItem>)ViewBag.vbActionStatuses, "Value", "Text").EditorTemplateName("action_statuses").Width(130);
@@ -150,9 +150,7 @@
     var containerHeight = $(".container").height();
     var gridHeight =
         $(window).height() - containerHeight - 200;
-    $(".k-grid").height(gridHeight);
-
-
+    $("#tabFor_Actions .k-grid").height(gridHeight);
 
     $(document).ready(function () {
 
@@ -259,6 +257,7 @@
                     else {
                         //$("#errormssg").html(dt.message);
                         alert(dt.message);
+                        $("#actions").data("kendoGrid").dataSource.read();
                         return false;
                     }
                 }

@@ -1,0 +1,8 @@
+﻿@model DateTime?
+
+@(Html.Kendo().DateTimePickerFor(m => m)
+    .Value(DateTime.Now)
+    .Animation(true)
+    .Format("yyyy-MM-dd HH:mm:ss")
+
+    )

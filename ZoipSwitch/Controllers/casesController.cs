@@ -79,6 +79,7 @@ namespace ZoipSwitch.Controllers
                                     cases.completing_operator_name = oper.operatoe_name;
                                     cases.start_date = itm.date;
                                     cases.end_date = itm.date;
+                                    break;
                                 }
                                 else
                                 {
@@ -92,7 +93,7 @@ namespace ZoipSwitch.Controllers
                         }
                         else
                         {
-                            return Json(new { message = "You must enter the action" }, JsonRequestBehavior.AllowGet);
+                            return Json(new { message = "The case must have at least one action" }, JsonRequestBehavior.AllowGet);
                         }
 
                     }
@@ -111,7 +112,7 @@ namespace ZoipSwitch.Controllers
                        // mCases.completing_operator_name = cases.completing_operator_name;
                                             
 
-                       db.Entry(mCases).State = EntityState.Modified;
+                       //db.Entry(mCases).State = EntityState.Modified;
 
                         //ենթաաղյուսակների լրացում
                         if (cases.Actions != null)
@@ -128,20 +129,48 @@ namespace ZoipSwitch.Controllers
                                     db.Actions.Attach(item);
                                     db.Entry(item).State = EntityState.Modified;
                                 }
-                                else if (item.RecordStatus == 3)
+                                else if (item.RecordStatus == 3 && mCases.Actions.Count != 1)
                                 {
                                     actions rAction = db.Actions.Find(item.action_id);
                                     db.Actions.Remove(rAction);
                                 }
+                                else
+                                {
+                                    return Json(new { message = "The case must have at least one action" }, JsonRequestBehavior.AllowGet);
+                                }
+                                db.Entry(mCases).State = EntityState.Modified;
                             }
 
                         }
-                        else
+                        //else
+                        //{
+                        //    //return Json(new { message = "You must have at least one action in the case" }, JsonRequestBehavior.AllowGet);
+                        //    return Json(new { statuscode = 1, message = "" }, JsonRequestBehavior.AllowGet);
+                        //}
+                        //db.Entry(mCases).State = EntityState.Modified;
+                        //List<actions> aaa = mCases.Actions.ToList();
+                        //actions actClosed = aaa.Where(p => p.action_status_id == 3);
+                        //if (aaa.Any(p=>p.action_status_id == 3))
+                        //{
+                        //    mCases.case_status_id = 3;
+                        //    operators oper = db.Operators.Find(aaa.operator_id);
+                        //    mCases.completing_operator_name = .operatoe_name;
+                        //    mCases.end_date = itm.date;
+                        //}
+                        //else
+                        //{
+                        //    mCases.case_status_id = 2;
+                        //    operators oper = db.Operators.Find(itm.operator_id);
+                        //    mCases.completing_operator_name = " ";
+                        //    mCases.end_date = null;
+                        //}
+                        List<actions> allActions = mCases.Actions.ToList();
+                        var closedActions = allActions.Where(p => p.action_status_id == 3);
+                        if(closedActions.ToArray().Length > 1)
                         {
-                            //return Json(new { message = "If you have not any changes in the actions, please close the window" }, JsonRequestBehavior.AllowGet);
-                            return Json(new { statuscode = 1, message = "" }, JsonRequestBehavior.AllowGet);
+                            return Json(new { message = "The case must have only one closed action" }, JsonRequestBehavior.AllowGet);
                         }
-                        foreach (var itm in cases.Actions)
+                        foreach (var itm in mCases.Actions)
                         {
                             if (itm.action_status_id == 3)
                             {
@@ -149,6 +178,7 @@ namespace ZoipSwitch.Controllers
                                 operators oper = db.Operators.Find(itm.operator_id);
                                 mCases.completing_operator_name = oper.operatoe_name;
                                 mCases.end_date = itm.date;
+                                break;
                             }
                             else
                             {
@@ -227,6 +257,15 @@ namespace ZoipSwitch.Controllers
                 using (db)
                 {
                     cases item = db.Cases.Find(id);
+                    if (item.Actions != null)
+                    {
+                        foreach (var itm in item.Actions.ToArray())
+                        {
+                            db.Actions.Attach(itm);
+                            db.Actions.Remove(itm);
+                            db.SaveChanges();
+                        }
+                    }
                     db.Cases.Attach(item);
                     db.Cases.Remove(item);
                     db.SaveChanges();

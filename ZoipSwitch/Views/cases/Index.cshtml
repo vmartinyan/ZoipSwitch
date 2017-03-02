@@ -144,10 +144,24 @@
     }
 
     function Update(e) {
+        //document.cookie = "last_modif=" + Date.now() + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=" + location.pathname;
+       
         var window = $("#crtWindow").data("kendoWindow");
         var row = $(e.target).closest("tr");
         var grid = $("#cases").data("kendoGrid");
         var dataItem = grid.dataItem(row);
+        //window.forwardDate = function () {
+        //    var datePicker = $("#datepicker").data("kendoDatePicker");
+
+        //    // add one day
+        //    var date = new Date(datePicker.value())
+        //    date.setDate(date.getDate() + 1);
+
+        //    // set new date
+        //    datePicker.value(date);
+
+        //    datePicker.trigger("change");
+        //}
         window.content("");
         window.title("Edit");
         window.refresh({
@@ -155,8 +169,13 @@
         });
     window.center();
     window.maximize().open();
+    
+    //alert(document.lastModified);
+    //location.reload();
     return false;
     }
+
+
 
     function Delete(e) {
         var row = $(e.target).closest("tr");
@@ -273,3 +292,4 @@
           })
             .ToClientTemplate())
 </script>
+
