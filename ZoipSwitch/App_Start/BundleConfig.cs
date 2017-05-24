@@ -159,7 +159,8 @@ namespace ZoipSwitch
                      "~/Scripts/js-core/jquery-ui-position.js",
                      "~/Scripts/js-core/transition.js",
                      "~/Scripts/js-core/modernizr.js",
-                     "~/Scripts/js-core/jquery-cookie.js"));
+                     "~/Scripts/js-core/jquery-cookie.js"
+                     ));
 
             bundles.Add(new ScriptBundle("~/bundles/widgets-js").Include(
                      "~/Content/widgets/dropdown/dropdown.js",
@@ -218,7 +219,7 @@ namespace ZoipSwitch
                         "~/Content/widgets/owlcarousel/owlcarousel-demo.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/kendo-js").Include(
-                        "~/Scripts/kendo/2017.1.118/jquery.min.js",
+                        //"~/Scripts/kendo/2017.1.118/jquery.min.js",
                         "~/Scripts/kendo/2017.1.118/jszip.min.js",
                         "~/Scripts/kendo/2017.1.118/kendo.all.min.js",
                         "~/Scripts/kendo/2017.1.118/kendo.aspnetmvc.min.js",
