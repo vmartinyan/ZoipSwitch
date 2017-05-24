@@ -10,7 +10,7 @@ using ZoipSwitch.Models;
 
 namespace ZoipSwitch.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
