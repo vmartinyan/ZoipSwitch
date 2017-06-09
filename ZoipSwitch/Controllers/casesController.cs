@@ -316,9 +316,6 @@ namespace ZoipSwitch.Controllers
             lActionStatuses = db.Action_Statuses.Select(x => new SelectListItem { Text = x.action_status_name, Value = x.action_status_id.ToString() }).ToList();
             ViewBag.vbActionStatuses = lActionStatuses;
 
-            var lResidents = new List<SelectListItem>();
-            lResidents = db.Residents.Select(x => new SelectListItem { Text = x.resident_name + " " + x.resident_lastname, Value = x.resident_id.ToString() }).ToList();
-            ViewBag.vbResidents = lResidents;
 
             var lOperators = new List<SelectListItem>();
             lOperators = db.Operators.Select(x => new SelectListItem { Text = x.name + " " + x.lastname, Value = x.operator_id.ToString() }).ToList();

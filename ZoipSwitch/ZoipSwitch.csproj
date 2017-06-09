@@ -85,8 +85,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Npgsql, Version=3.1.9.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Npgsql.3.1.9\lib\net451\Npgsql.dll</HintPath>
+    <Reference Include="Npgsql, Version=3.2.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.2.3\lib\net451\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OzekiSDK, Version=1.4.6.0, Culture=neutral, PublicKeyToken=4812fb35129b8487, processorArchitecture=MSIL">
@@ -96,6 +96,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -224,7 +228,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\operatorsController.cs" />
-    <Compile Include="Controllers\residentsController.cs" />
     <Compile Include="DAL\Context.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -243,7 +246,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\operators.cs" />
-    <Compile Include="Models\residents.cs" />
     <Compile Include="Models\vwAction.cs" />
     <Compile Include="Models\vwCases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2476,7 +2478,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -2740,7 +2744,6 @@
     <Content Include="Views\cases\EditorTemplates\action_categories.cshtml" />
     <Content Include="Views\cases\EditorTemplates\action_types.cshtml" />
     <Content Include="Views\cases\EditorTemplates\action_statuses.cshtml" />
-    <Content Include="Views\cases\EditorTemplates\residents.cshtml" />
     <Content Include="Views\cases\EditorTemplates\operators.cshtml" />
     <Content Include="Views\cases\CreateTemplate.cshtml" />
     <Content Include="Views\cases\EditorTemplates\action_date.cshtml" />

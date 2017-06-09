@@ -44,11 +44,11 @@ namespace ZoipSwitch.Models
 
 
         [Display(Name = "Resident")]
-        public int resident_id { get; set; }
-        [Display(Name = "Resident Name")]
-        public string resident_name { get; set; }
-        [Display(Name = "Resident Lastname")]
-        public string resident_lastname { get; set; }
+        public string resident { get; set; }
+
+        [Display(Name = "Phone")]
+        [DataType(DataType.PhoneNumber)]
+        public string phone { get; set; }
 
         [Display(Name = "Date")]
         [DataType(DataType.DateTime)]
@@ -71,18 +71,6 @@ namespace ZoipSwitch.Models
                 return operator_nm;
             }
             set { operatoe_name = value; }
-        }
-
-        [NotMapped]
-        [Display(Name = "Resident")]
-        public string resident
-        {
-            get
-            {
-                string res = resident_name + " " + resident_lastname;
-                return res;
-            }
-            set { resident = value; }
         }
     }
 }

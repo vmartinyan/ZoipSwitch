@@ -96,9 +96,10 @@
                                   columns.ForeignKey(model => model.action_category_id, (List<SelectListItem>)ViewBag.vbActionCategories, "Value", "Text").EditorTemplateName("action_categories").Width(130);
                                   columns.ForeignKey(model => model.action_type_id, (List<SelectListItem>)ViewBag.vbActionTypes, "Value", "Text").EditorTemplateName("action_types").Width(170);
                                   columns.ForeignKey(model => model.action_status_id, (List<SelectListItem>)ViewBag.vbActionStatuses, "Value", "Text").EditorTemplateName("action_statuses").Width(130);
-                                  columns.ForeignKey(model => model.resident_id, (List<SelectListItem>)ViewBag.vbResidents, "Value", "Text").EditorTemplateName("residents").Width(200);
+                                  columns.Bound(model => model.resident).Width(200);
+                                  columns.Bound(model => model.phone).Width(120);
                                   columns.ForeignKey(model => model.operator_id, (List<SelectListItem>)ViewBag.vbOperators, "Value", "Text").EditorTemplateName("operators").Width(200);
-                                  columns.Bound(model => model.file).Width(70);
+                                 // columns.Bound(model => model.file).Width(70);
                                   columns.Bound(model => model.description);
                                   columns.Command(commands =>
                                   {
@@ -161,13 +162,13 @@
             });
         $("#dtSave")
             .click(function (e) {
-                //var errTempl = '<div class="k-widget k-tooltip k-tooltip-validation" style="margin:0.5em"><span class="k-icon k-warning"> </span>#=message#<div class="k-callout k-callout-n"></div></div>';
-                //var validator = $(".create-item").kendoValidator({
-                //    errorTemplate: errTempl
-                //}).data("kendoValidator");
-                //if (!validator.validate()) {
-                //    return false;
-                //}
+                var errTempl = '<div class="k-widget k-tooltip k-tooltip-validation" style="margin:0.5em"><span class="k-icon k-warning"> </span>#=message#<div class="k-callout k-callout-n"></div></div>';
+                var validator = $(".create-item").kendoValidator({
+                    errorTemplate: errTempl
+                }).data("kendoValidator");
+                if (!validator.validate()) {
+                    return false;
+                }
 
                 var item = new Object();
                 item.case_id = '@Model.case_id';
@@ -193,7 +194,8 @@
                         itm.action_category_id = currentActionData[i].action_category_id;
                         itm.action_type_id = currentActionData[i].action_type_id;
                         itm.action_status_id = currentActionData[i].action_status_id;
-                        itm.resident_id = currentActionData[i].resident_id;
+                        itm.resident = currentActionData[i].resident;
+                        itm.phone = currentActionData[i].phone;
                         itm.description = currentActionData[i].description;
                         itm.file = currentActionData[i].file;
                         itm.date = currentActionData[i].date;
@@ -206,7 +208,8 @@
                         itm.action_category_id = currentActionData[i].action_category_id;
                         itm.action_type_id = currentActionData[i].action_type_id;
                         itm.action_status_id = currentActionData[i].action_status_id;
-                        itm.resident_id = currentActionData[i].resident_id;
+                        itm.resident = currentActionData[i].resident;
+                        itm.phone = currentActionData[i].phone;
                         itm.description = currentActionData[i].description;
                         itm.file = currentActionData[i].file;
                         itm.date = currentActionData[i].date;
@@ -222,7 +225,8 @@
                     itm.action_category_id = actionGrid.dataSource._destroyed[i].action_category_id;
                     itm.action_type_id = actionGrid.dataSource._destroyed[i].action_type_id;
                     itm.action_status_id = actionGrid.dataSource._destroyed[i].action_status_id;
-                    itm.resident_id = actionGrid.dataSource._destroyed[i].resident_id;
+                    itm.resident = actionGrid.dataSource._destroyed[i].resident;
+                    itm.phone = actionGrid.dataSource._destroyed[i].phone;
                     itm.description = actionGrid.dataSource._destroyed[i].description;
                     itm.file = actionGrid.dataSource._destroyed[i].file;
                     itm.date = actionGrid.dataSource._destroyed[i].date;
