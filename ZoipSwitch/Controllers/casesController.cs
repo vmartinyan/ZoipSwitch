@@ -55,6 +55,7 @@ namespace ZoipSwitch.Controllers
                     // եթե 2-րդ մակարդակի աղյուսակի տողը նոր գրառումա ավելացնում ենք
                     if (cases.case_id == 0)
                     {
+                        
                         //ավելացնել
                         db.Cases.Add(cases);
 
@@ -71,6 +72,12 @@ namespace ZoipSwitch.Controllers
                             }
                             foreach (var itm in cases.Actions)
                             {
+                                
+                                if (itm.action_status_id == 1)
+                                {
+                                    cases.initiator = itm.resident;
+                                }
+
                                 if (itm.action_status_id == 3)
                                 {
                                     cases.case_status_id = 3;
@@ -90,6 +97,25 @@ namespace ZoipSwitch.Controllers
                                     cases.end_date = null;
                                 }
                             }
+
+
+                            List<actions> allActions = cases.Actions.ToList();
+                            var closedActions = allActions.Where(p => p.action_status_id == 3);
+                            var currentActions = allActions.Where(p => p.action_status_id == 2);
+                            var creationActions = allActions.Where(p => p.action_status_id == 1);
+                            if (closedActions.ToArray().Length > 1)
+                            {
+                                return Json(new { message = "The case must have only one closed action status" }, JsonRequestBehavior.AllowGet);
+                            }
+                            if (creationActions.ToArray().Length > 1)
+                            {
+                                return Json(new { message = "The case must have only one creation action status" }, JsonRequestBehavior.AllowGet);
+                            }
+                            if (currentActions.ToArray().Length > 0 && creationActions.ToArray().Length == 0 && closedActions.ToArray().Length == 0)
+                            {
+                                return Json(new { message = "The case can not have only current status" }, JsonRequestBehavior.AllowGet);
+                            }
+
                         }
                         else
                         {
@@ -106,19 +132,21 @@ namespace ZoipSwitch.Controllers
                         mCases.case_type_id = cases.case_type_id;
                         mCases.case_urgency_id = cases.case_urgency_id;
                         mCases.case_department_id = cases.case_department_id;
-                       // mCases.start_date = cases.start_date;
+                        // mCases.start_date = cases.start_date;
                         //mCases.end_date = cases.end_date;
                         //mCases.creator_operator_name = cases.creator_operator_name;
-                       // mCases.completing_operator_name = cases.completing_operator_name;
-                                            
+                        // mCases.completing_operator_name = cases.completing_operator_name;
 
-                       //db.Entry(mCases).State = EntityState.Modified;
+
+                        //db.Entry(mCases).State = EntityState.Modified;
 
                         //ենթաաղյուսակների լրացում
-                        if (cases.Actions != null)
+                        //if (cases.Actions != null)
+                        //{
+
+
+                        foreach (var item in cases.Actions)
                         {
-                            foreach (var item in cases.Actions)
-                            {
                                 if (item.RecordStatus == 1)
                                 {
                                     item.cases = mCases;
@@ -129,7 +157,7 @@ namespace ZoipSwitch.Controllers
                                     db.Actions.Attach(item);
                                     db.Entry(item).State = EntityState.Modified;
                                 }
-                                else if (item.RecordStatus == 3 && mCases.Actions.Count != 1)
+                                else if (item.RecordStatus == 3)
                                 {
                                     actions rAction = db.Actions.Find(item.action_id);
                                     db.Actions.Remove(rAction);
@@ -139,36 +167,25 @@ namespace ZoipSwitch.Controllers
                                     return Json(new { message = "The case must have at least one action" }, JsonRequestBehavior.AllowGet);
                                 }
                                 db.Entry(mCases).State = EntityState.Modified;
-                            }
-
                         }
-                        //else
-                        //{
-                        //    //return Json(new { message = "You must have at least one action in the case" }, JsonRequestBehavior.AllowGet);
-                        //    return Json(new { statuscode = 1, message = "" }, JsonRequestBehavior.AllowGet);
+
                         //}
-                        //db.Entry(mCases).State = EntityState.Modified;
-                        //List<actions> aaa = mCases.Actions.ToList();
-                        //actions actClosed = aaa.Where(p => p.action_status_id == 3);
-                        //if (aaa.Any(p=>p.action_status_id == 3))
-                        //{
-                        //    mCases.case_status_id = 3;
-                        //    operators oper = db.Operators.Find(aaa.operator_id);
-                        //    mCases.completing_operator_name = .operatoe_name;
-                        //    mCases.end_date = itm.date;
-                        //}
-                        //else
-                        //{
-                        //    mCases.case_status_id = 2;
-                        //    operators oper = db.Operators.Find(itm.operator_id);
-                        //    mCases.completing_operator_name = " ";
-                        //    mCases.end_date = null;
-                        //}
+
                         List<actions> allActions = mCases.Actions.ToList();
                         var closedActions = allActions.Where(p => p.action_status_id == 3);
-                        if(closedActions.ToArray().Length > 1)
+                        var currentActions = allActions.Where(p => p.action_status_id == 2);
+                        var creationActions = allActions.Where(p => p.action_status_id == 1);
+                        if (closedActions.ToArray().Length > 1)
                         {
-                            return Json(new { message = "The case must have only one closed action" }, JsonRequestBehavior.AllowGet);
+                            return Json(new { message = "The case must have only one closed action status" }, JsonRequestBehavior.AllowGet);
+                        }
+                        if (creationActions.ToArray().Length > 1)
+                        {
+                            return Json(new { message = "The case must have only one creation action status" }, JsonRequestBehavior.AllowGet);
+                        }
+                        if (currentActions.ToArray().Length > 0 && creationActions.ToArray().Length == 0 && closedActions.ToArray().Length == 0)
+                        {
+                            return Json(new { message = "The case can not have only current status" }, JsonRequestBehavior.AllowGet);
                         }
                         foreach (var itm in mCases.Actions)
                         {
@@ -188,9 +205,11 @@ namespace ZoipSwitch.Controllers
                                 mCases.end_date = null;
                             }
                         }
+
                         db.Entry(mCases).State = EntityState.Modified;
                         
                     }
+                    
                     db.SaveChanges();
                     return Json(new { statuscode = 1, message = "" }, JsonRequestBehavior.AllowGet);
                 }
@@ -315,7 +334,6 @@ namespace ZoipSwitch.Controllers
             var lActionStatuses = new List<SelectListItem>();
             lActionStatuses = db.Action_Statuses.Select(x => new SelectListItem { Text = x.action_status_name, Value = x.action_status_id.ToString() }).ToList();
             ViewBag.vbActionStatuses = lActionStatuses;
-
 
             var lOperators = new List<SelectListItem>();
             lOperators = db.Operators.Select(x => new SelectListItem { Text = x.name + " " + x.lastname, Value = x.operator_id.ToString() }).ToList();

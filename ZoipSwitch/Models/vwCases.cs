@@ -47,6 +47,9 @@ namespace ZoipSwitch.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime? end_date { get; set; }
 
+        [Display(Name = "Initiator")]
+        public string initiator { get; set; }
+
         [Display(Name = "Creator Operator")]
         public string creator_operator_name { get; set; }
 

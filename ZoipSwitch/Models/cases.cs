@@ -67,6 +67,9 @@ namespace ZoipSwitch.Models
         [Display(Name = "Completing Operator")]
         public string completing_operator_name { get; set; }
 
+        [Display(Name = "Initiator")]
+        public string initiator { get; set; }
+
         //Ենթաաղյուսակների բաժին
         public virtual ICollection<actions> Actions { get; set; }
     }

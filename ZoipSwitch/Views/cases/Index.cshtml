@@ -75,6 +75,7 @@
                             columns.Bound(model => model.case_department_name);
                             columns.Bound(model => model.start_date).Width(120);
                             columns.Bound(model => model.end_date).Width(120);
+                            columns.Bound(model => model.initiator).Width(200);
                             columns.Bound(model => model.creator_operator_name).Width(200);
                             columns.Bound(model => model.completing_operator_name).Width(200);
                             columns.Command(commands =>
@@ -259,18 +260,18 @@
               .Name("Cases_#=case_id#")
               .Columns(columns =>
               {
-                  columns.Bound(product => product.action_id).Hidden();
-                  columns.Bound(product => product.date).Width(150);
-                  columns.Bound(product => product.action_category_name).Width(130);
-                  columns.Bound(product => product.action_type_name).Width(150);
-                  columns.Bound(product => product.action_status_name).Width(130);
-                  columns.Bound(product => product.resident).Width(200);
-                  columns.Bound(product => product.phone).Width(120);
-                  //columns.Bound(product => product.resident_lastname);
-                  columns.Bound(product => product.operatoe_name).Width(200);
-                  //columns.Bound(product => product.lastname);
-                  columns.Bound(product => product.file).Width(70);
-                  columns.Bound(product => product.description);
+                  columns.Bound(m => m.action_id).Hidden();
+                  columns.Bound(m => m.date).Width(150);
+                  columns.Bound(m => m.action_category_name).Width(130);
+                  columns.Bound(m => m.action_type_name).Width(150);
+                  columns.Bound(m => m.action_status_name).Width(130);
+                  columns.Bound(m => m.resident).Width(200);
+                  columns.Bound(m => m.phone).Width(120);
+                  //columns.Bound(m => m.resident_lastname);
+                  columns.Bound(m => m.operatoe_name).Width(200);
+                  //columns.Bound(m => m.lastname);
+                  columns.Bound(m => m.file).Width(70);
+                  columns.Bound(m => m.description);
               })
              .DataSource(dataSource => dataSource
                       .Ajax()
